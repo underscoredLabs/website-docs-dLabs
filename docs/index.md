@@ -50,6 +50,7 @@ decimal ethAmount = 0.01m;
 string transactionHash = await ethereum.Send(toAccount, ethAmount);
 print(transactionHash);
 ```
+
 ## ERC1155
 
 ERC-1155 contracts have two additonal fields.
@@ -92,7 +93,7 @@ string[] tokenIds = { "17", "22" };
 
 List<BigInteger> batchBalances = await erc1155.BalanceOfBatch(accounts, tokenIds);
 
-foreach (var balance in batchBalances) 
+foreach (var balance in batchBalances)
 {
   print(balance);
 };
@@ -122,7 +123,6 @@ Send `1` token with id `17` and
 
 Send `2` tokens with id `22`.
 
-
 ```c#
 string fromAccount = "0xaca9b6d9b1636d99156bb12825c75de1e5a58870";
 string toAccount = "0x72b8Df71072E38E8548F9565A322B04b9C752932";
@@ -149,9 +149,60 @@ print(uri);
 Queries the approval status of an operator for a given owner
 
 ```c#
-string account = "0xaca9b6d9b1636d99156bb12825c75de1e5a58870"; 
+string account = "0xaca9b6d9b1636d99156bb12825c75de1e5a58870";
 string authorizedOperator = "0x3482549fca7511267c9ef7089507c0f16ea1dcc1";
 
 bool isApproved = await erc1155.IsApprovedForAll(account, authorizedOperator);
 print(isApproved);
+```
+
+## Wallet
+
+Public and private key management can either be done through the WalletScene or manually. 
+
+### Wallet Scene
+
+Add `/uToken/Scenes/WalletScene` to the beginning of your build settings. To access wallet scene private key and account:
+
+```c#
+string password = ""; // default is empty
+string privateKey = UnityWallet.PrivateKey(password);
+print(privateKey);
+
+string account = UnityWallet.Account();
+print(account);
+```
+
+### Manual
+
+To generate your own account.
+
+```c#
+using System;
+using NBitcoin;
+using Nethereum.HdWallet;
+using Nethereum.KeyStore.Model;
+
+void GenerateWallet()
+{
+  // generate mneumonic
+  Mnemonic mnemo = new Mnemonic(Wordlist.English, WordCount.Twelve);
+  // create new wallet
+  var wallet = new Wallet(mnemo.ToString(), "");
+  // access Hierarchical Deterministic wallet 0
+  var account = wallet.GetAccount(0);
+
+  // encrypt account with password
+  string password = "";
+  var keyStoreService = new Nethereum.KeyStore.KeyStoreScryptService();
+  var scryptParams = new ScryptParams { Dklen = 32, N = 262144, R = 1, P = 8 };
+  var ecKey = new Nethereum.Signer.EthECKey(account.PrivateKey);
+  var keyStore = keyStoreService.EncryptAndGenerateKeyStore(password, ecKey.GetPrivateKeyAsBytes(), ecKey.GetPublicAddress(), scryptParams);
+  string json = keyStoreService.SerializeKeyStoreToJson(keyStore);
+
+  // decrypt account
+  print("account: " + account.Address);
+  string decryptedPrivateKey = BitConverter.ToString(keyStoreService.DecryptKeyStoreFromJson(password, json)).Replace("-", string.Empty).Replace("0x", string.Empty).ToLower();
+  print("decrypted private key: " + decryptedPrivateKey);
+}
 ```
