@@ -150,10 +150,3 @@ string authorizedOperator = "0x3482549fca7511267c9ef7089507c0f16ea1dcc1";
 bool isApproved = await erc1155.IsApprovedForAll(account, authorizedOperator);
 print(isApproved);
 ```
-
-
-
-
-
-<br><br><br><br><br><br><br><br><br><br><br><br>
-<br><br><br><br><br><br><br><br><br><br><br><br>
