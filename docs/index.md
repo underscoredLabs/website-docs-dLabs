@@ -1,6 +1,6 @@
 ---
 title: uToken
-summary: A plugin to bridging Ethereum Tokens to Unity.
+summary: A plugin bridging Ethereum Tokens to Unity.
 ---
 
 # uToken Documentation

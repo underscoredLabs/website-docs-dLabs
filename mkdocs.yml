@@ -1,4 +1,4 @@
 site_name: uToken 
 theme: readthedocs
-site_description: A plugin to bridging Ethereum Tokens to Unity.
+site_description: A plugin bridging Ethereum Tokens to Unity.
 repo_url: https://github.com/underscoredLabs/website-uToken
