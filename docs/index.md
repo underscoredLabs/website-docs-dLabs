@@ -66,8 +66,7 @@ For example. The contract address `0x5e30b1d6f920364c847512e2528efdadf72a97a9` c
 ```c#
 string network = "mainnet"; // mainnet ropsten kovan rinkeby goerli
 string contract = "0x5e30b1d6f920364c847512e2528efdadf72a97a9";
-string privateKey = "0000000000000000000000000000000000000000000000000000000000000001"; // remove if using WalletScene
-ERC1155 erc1155 = new ERC1155(network, contract, privateKey);
+ERC1155 erc1155 = new ERC1155(network, contract);
 ```
 
 ### Balance Of
@@ -101,8 +100,13 @@ foreach (var balance in batchBalances)
 ```
 
 ### Safe Transfer From
+If [WalletScene](#walletscene) is not being used, then a private key is required.
+
 
 ```c#
+string privateKey = "0000000000000000000000000000000000000000000000000000000000000001";
+ERC1155 erc1155 = new ERC1155(network, contract, privateKey);
+
 string fromAccount = "0xaCA9B6D9B1636D99156bB12825c75De1E5a58870";
 string toAccount = "0x72b8Df71072E38E8548F9565A322B04b9C752932";
 string tokenId = "17";
@@ -121,7 +125,12 @@ Send `1` token with id `17` and
 
 Send `2` tokens with id `22`.
 
+If [WalletScene](#walletscene) is not being used, then a private key is required.
+
 ```c#
+string privateKey = "0000000000000000000000000000000000000000000000000000000000000001";
+ERC1155 erc1155 = new ERC1155(network, contract, privateKey);
+
 string fromAccount = "0xaca9b6d9b1636d99156bb12825c75de1e5a58870";
 string toAccount = "0x72b8Df71072E38E8548F9565A322B04b9C752932";
 string[] tokenIds = {"17", "22"};
