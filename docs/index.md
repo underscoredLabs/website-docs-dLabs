@@ -38,10 +38,10 @@ print("eth: " + Web3.Convert.FromWei(wei));
 
 ### Send
 
-If WalletScene is not being used, then a private key is required.
+If [WalletScene](#walletscene) is not being used, then a private key is required.
 
 ```c#
-string privateKey = ""; // remove if using WalletScene
+string privateKey = "0000000000000000000000000000000000000000000000000000000000000001";
 Ethereum ethereum = new Ethereum(network, privateKey);
 
 string toAccount = "0x72b8Df71072E38E8548F9565A322B04b9C752932";
@@ -66,7 +66,8 @@ For example. The contract address `0x5e30b1d6f920364c847512e2528efdadf72a97a9` c
 ```c#
 string network = "mainnet"; // mainnet ropsten kovan rinkeby goerli
 string contract = "0x5e30b1d6f920364c847512e2528efdadf72a97a9";
-ERC1155 erc1155 = new ERC1155(network, contract);
+string privateKey = "0000000000000000000000000000000000000000000000000000000000000001"; // remove if using WalletScene
+ERC1155 erc1155 = new ERC1155(network, contract, privateKey);
 ```
 
 ### Balance Of
@@ -102,9 +103,6 @@ foreach (var balance in batchBalances)
 ### Safe Transfer From
 
 ```c#
-string privateKey = ""; // remove if using WalletScene
-ERC1155 erc1155 = new ERC1155(network, contract, privateKey);
-
 string fromAccount = "0xaCA9B6D9B1636D99156bB12825c75De1E5a58870";
 string toAccount = "0x72b8Df71072E38E8548F9565A322B04b9C752932";
 string tokenId = "17";
@@ -160,7 +158,7 @@ print(isApproved);
 
 Public and private key management can either be done through the WalletScene or manually. 
 
-### Wallet Scene
+### WalletScene
 
 Add `/uToken/Scenes/WalletScene` to the beginning of your build settings. To access wallet scene private key and account:
 
