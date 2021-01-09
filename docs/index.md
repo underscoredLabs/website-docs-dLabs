@@ -100,8 +100,8 @@ foreach (var balance in batchBalances)
 ```
 
 ### Safe Transfer From
-If [WalletScene](#walletscene) is not being used, then a private key is required.
 
+If [WalletScene](#walletscene) is not being used, then a private key is required.
 
 ```c#
 string privateKey = "0000000000000000000000000000000000000000000000000000000000000001";
@@ -165,7 +165,7 @@ print(isApproved);
 
 ## Wallet
 
-Public and private key management can either be done through the WalletScene or manually. 
+Public and private key management can either be done through the WalletScene or manually.
 
 ### WalletScene
 
@@ -213,3 +213,24 @@ void GenerateWallet()
   print("decrypted private key: " + decryptedPrivateKey);
 }
 ```
+
+## OpenSea
+
+### GetTokenInfo
+
+OpenSea provides an HTTP API for fetching non-fungible assets based on a set of parameters. This is a Unity interface to fetch token asset info.
+
+```c#
+using OpenSeaDefinition;
+
+string network = "mainnet"; // mainnet rinkeby
+OpenSea openSea = new OpenSea(network);
+
+string[] contracts = {"0x5e30b1d6f920364c847512e2528efdadf72a97a9"};
+string[] tokenIds = {"9297472344724926092841919778025655237517835814992492894761274101626115719268", "9297472344724926092841919778025655237517835814992492894761274118118790135908"};
+TokenInfo tokenInfo = await openSea.GetTokenInfo(contracts, tokenIds);
+
+print(JsonUtility.ToJson(tokenInfo, true));
+```
+
+<br><br><br><br><br><br>
