@@ -86,9 +86,9 @@
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#connect_2">Connect</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#balanceof">BalanceOf</a>
+    <li class="toctree-l3"><a class="reference internal" href="#balance-of_2">Balance Of</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#ownerof">OwnerOf</a>
+    <li class="toctree-l3"><a class="reference internal" href="#owner-of">Owner Of</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#safe-transfer-from_1">Safe Transfer From</a>
     </li>
@@ -261,13 +261,13 @@ print(isApproved);
 string contract = &quot;0xe41d4b6ae91a322c89ecfe7670a154412659e8b0&quot;;
 ERC721 erc721= new ERC721(network, contract);
 </code></pre>
-<h3 id="balanceof">BalanceOf</h3>
+<h3 id="balance-of_2">Balance Of</h3>
 <p>Counts all NFTs assigned to an owner</p>
 <pre><code class="language-c#">string account = &quot;0x72b8Df71072E38E8548F9565A322B04b9C752932&quot;;
 BigInteger balance = await erc721.BalanceOf(account);
 print(balance);
 </code></pre>
-<h3 id="ownerof">OwnerOf</h3>
+<h3 id="owner-of">Owner Of</h3>
 <p>Find the owner of a NFT </p>
 <pre><code class="language-c#">string tokenId = &quot;12&quot;;
 string account = await erc721.OwnerOf(tokenId);
@@ -384,5 +384,5 @@ print(JsonUtility.ToJson(tokenInfo, true));
 
 <!--
 MkDocs version : 1.1.2
-Build Date UTC : 2021-01-09 15:38:41.612848+00:00
+Build Date UTC : 2021-01-09 15:43:57.030498+00:00
 -->
