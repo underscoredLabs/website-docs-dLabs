@@ -208,6 +208,77 @@ string transactionHash = await erc721.SafeTransferFrom(fromAccount, toAccount, t
 print(transactionHash);
 ```
 
+## ERC20
+
+### Connect
+
+```c#
+string network = "rinkeby"; // mainnet ropsten kovan rinkeby goerli
+string contract = "0xc778417e063141139fce010982780140aa0cd5ab";
+ERC20 erc20 = new ERC20(network, contract);
+```
+
+### Balance Of
+
+```c#
+string account = "0xaCA9B6D9B1636D99156bB12825c75De1E5a58870";
+BigInteger balance = await erc20.BalanceOf(account);
+
+// BigInteger decimals = await erc20.Decimals();
+BigInteger decimals = 18;
+print("blance in smallest unit: " + balance);
+print("balance in decimals: " + (double)balance / (double)BigInteger.Pow(10, (int)decimals));
+```
+
+### Transfer
+
+```c#
+string privateKey = "0000000000000000000000000000000000000000000000000000000000000001"; // remove if using WalletScene
+ERC20 erc20 = new ERC20(network, contract, privateKey);
+
+string toAccount = "0x72b8Df71072E38E8548F9565A322B04b9C752932";
+string amount = "100000000000000000"; // in smallest unit
+
+string transactionHash = await erc20.Transfer(toAccount, amount);
+print(transactionHash);
+```
+
+### Name
+
+Returns the name of the token. E.g. "Wrapped Ether"
+
+```c#
+string name = await erc20.Name();
+print(name)
+```
+
+### Symbol
+
+Returns the symbol of the token. E.g. “WETH”.
+
+```c#
+string symbol = await erc20.Symbol();
+print(symbol);
+```
+
+### Decimals
+
+Returns the number of decimals the token uses - e.g. 8, means to divide the token amount by 100000000 to get its user representation.
+
+```c#
+BigInteger decimals = await erc20.Decimals();
+print(decimals);
+```
+
+### Total Supply
+
+Returns the total token supply.
+
+```c#
+BigInteger totalSupply = await erc20.TotalSupply();
+print(totalSupply);
+```
+
 ## Wallet
 
 Public and private key management can either be done through the WalletScene or manually.
