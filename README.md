@@ -19,8 +19,5 @@ $ mkdocs serve
 
 ## Publishing
 ```bash
-$ mkdocs build
-# copy contents from /site
-$ git checkout website
-# paste contents in this branch
+$ mkdocs gh-deployh
 ```
