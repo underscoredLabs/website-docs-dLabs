@@ -94,6 +94,24 @@
     </li>
         </ul>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#erc20">ERC20</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#connect_3">Connect</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#balance-of_3">Balance Of</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#transfer">Transfer</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#name">Name</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#symbol">Symbol</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#decimals">Decimals</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#total-supply">Total Supply</a>
+    </li>
+        </ul>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#wallet">Wallet</a>
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#walletscene">WalletScene</a>
@@ -285,6 +303,51 @@ string data = &quot;0x0&quot;;
 string transactionHash = await erc721.SafeTransferFrom(fromAccount, toAccount, tokenId, data);
 print(transactionHash);
 </code></pre>
+<h2 id="erc20">ERC20</h2>
+<h3 id="connect_3">Connect</h3>
+<pre><code class="language-c#">string network = &quot;rinkeby&quot;; // mainnet ropsten kovan rinkeby goerli
+string contract = &quot;0xc778417e063141139fce010982780140aa0cd5ab&quot;;
+ERC20 erc20 = new ERC20(network, contract);
+</code></pre>
+<h3 id="balance-of_3">Balance Of</h3>
+<pre><code class="language-c#">string account = &quot;0xaCA9B6D9B1636D99156bB12825c75De1E5a58870&quot;;
+BigInteger balance = await erc20.BalanceOf(account);
+
+// BigInteger decimals = await erc20.Decimals();
+BigInteger decimals = 18;
+print(&quot;blance in smallest unit: &quot; + balance);
+print(&quot;balance in decimals: &quot; + (double)balance / (double)BigInteger.Pow(10, (int)decimals));
+</code></pre>
+<h3 id="transfer">Transfer</h3>
+<pre><code class="language-c#">string privateKey = &quot;0000000000000000000000000000000000000000000000000000000000000001&quot;; // remove if using WalletScene
+ERC20 erc20 = new ERC20(network, contract, privateKey);
+
+string toAccount = &quot;0x72b8Df71072E38E8548F9565A322B04b9C752932&quot;;
+string amount = &quot;100000000000000000&quot;; // in smallest unit
+
+string transactionHash = await erc20.Transfer(toAccount, amount);
+print(transactionHash);
+</code></pre>
+<h3 id="name">Name</h3>
+<p>Returns the name of the token. E.g. "Wrapped Ether"</p>
+<pre><code class="language-c#">string name = await erc20.Name();
+print(name)
+</code></pre>
+<h3 id="symbol">Symbol</h3>
+<p>Returns the symbol of the token. E.g. “WETH”.</p>
+<pre><code class="language-c#">string symbol = await erc20.Symbol();
+print(symbol);
+</code></pre>
+<h3 id="decimals">Decimals</h3>
+<p>Returns the number of decimals the token uses - e.g. 8, means to divide the token amount by 100000000 to get its user representation.</p>
+<pre><code class="language-c#">BigInteger decimals = await erc20.Decimals();
+print(decimals);
+</code></pre>
+<h3 id="total-supply">Total Supply</h3>
+<p>Returns the total token supply.</p>
+<pre><code class="language-c#">BigInteger totalSupply = await erc20.TotalSupply();
+print(totalSupply);
+</code></pre>
 <h2 id="wallet">Wallet</h2>
 <p>Public and private key management can either be done through the WalletScene or manually.</p>
 <h3 id="walletscene">WalletScene</h3>
@@ -384,5 +447,5 @@ print(JsonUtility.ToJson(tokenInfo, true));
 
 <!--
 MkDocs version : 1.1.2
-Build Date UTC : 2021-01-09 15:43:57.030498+00:00
+Build Date UTC : 2021-01-09 17:19:35.352458+00:00
 -->
