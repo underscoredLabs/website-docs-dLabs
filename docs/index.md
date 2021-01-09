@@ -163,6 +163,51 @@ bool isApproved = await erc1155.IsApprovedForAll(account, authorizedOperator);
 print(isApproved);
 ```
 
+## ERC721
+
+### Connect
+
+```c#
+string network = "rinkeby"; // mainnet ropsten kovan rinkeby goerli
+string contract = "0xe41d4b6ae91a322c89ecfe7670a154412659e8b0";
+ERC721 erc721= new ERC721(network, contract);
+```
+
+### BalanceOf
+
+Counts all NFTs assigned to an owner
+
+```c#
+string account = "0x72b8Df71072E38E8548F9565A322B04b9C752932";
+BigInteger balance = await erc721.BalanceOf(account);
+print(balance);
+```
+
+### OwnerOf
+
+Find the owner of a NFT 
+
+```c#
+string tokenId = "12";
+string account = await erc721.OwnerOf(tokenId);
+print(account);
+```
+
+### Safe Transfer From
+
+```c#
+string privateKey = "0000000000000000000000000000000000000000000000000000000000000001";
+ERC721 erc721 = new ERC721(network, contract, privateKey);
+
+string fromAccount = "0x72b8Df71072E38E8548F9565A322B04b9C752932";
+string toAccount = "0xaCA9B6D9B1636D99156bB12825c75De1E5a58870";
+string tokenId = "12";
+string data = "0x0";
+
+string transactionHash = await erc721.SafeTransferFrom(fromAccount, toAccount, tokenId, data);
+print(transactionHash);
+```
+
 ## Wallet
 
 Public and private key management can either be done through the WalletScene or manually.
