@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A plugin bridging Ethereum Tokens to Unity.">
+  
+  
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <title>uToken</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="css/theme.css" />
+  <link rel="stylesheet" href="css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "uToken";
+    var mkdocs_page_input_path = "index.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="js/jquery-2.1.1.min.js" defer></script>
+  <script src="js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="." class="icon icon-home"> uToken</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href=".">uToken</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#ethereum">Ethereum</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#connect">Connect</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#block-height">Block Height</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#balance-of">Balance Of</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#send">Send</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#erc1155">ERC1155</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#connect_1">Connect</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#balance-of_1">Balance Of</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#balance-of-batch">Balance Of Batch</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#safe-transfer-from">Safe Transfer From</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#safe-batch-transfer-from">Safe Batch Transfer From</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#uri">URI</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#is-approved-for-all">Is Approved For All</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#wallet">Wallet</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#walletscene">WalletScene</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#manual">Manual</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#opensea">OpenSea</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#gettokeninfo">GetTokenInfo</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href=".">uToken</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>uToken</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="utoken-documentation">uToken Documentation</h1>
+<p>A plugin to bridge Unity to Ethereum Tokens.</p>
+<h2 id="introduction">Introduction</h2>
+<p><a href="https://www.youtube.com/watch?v=_XnB1BjUSvQ"><img alt="Watch the video" src="https://user-images.githubusercontent.com/19412160/103559601-66aa0480-4e84-11eb-803a-6f854e93640a.png" /></a></p>
+<h2 id="ethereum">Ethereum</h2>
+<h3 id="connect">Connect</h3>
+<pre><code class="language-c#">string network = &quot;mainnet&quot;; // mainnet ropsten kovan rinkeby goerli
+Ethereum ethereum = new Ethereum(network);
+</code></pre>
+<h3 id="block-height">Block Height</h3>
+<pre><code class="language-c#">BigInteger blockHeight = await ethereum.BlockHeight();
+print(blockHeight);
+</code></pre>
+<h3 id="balance-of">Balance Of</h3>
+<pre><code class="language-c#">string account  = &quot;0xaca9b6d9b1636d99156bb12825c75de1e5a58870&quot;;
+BigInteger wei = await ethereum.BalanceOf(account);
+print(&quot;wei: &quot; + wei);
+print(&quot;eth: &quot; + Web3.Convert.FromWei(wei));
+</code></pre>
+<h3 id="send">Send</h3>
+<p>If <a href="#walletscene">WalletScene</a> is not being used, then a private key is required.</p>
+<pre><code class="language-c#">string privateKey = &quot;0000000000000000000000000000000000000000000000000000000000000001&quot;;
+Ethereum ethereum = new Ethereum(network, privateKey);
+
+string toAccount = &quot;0x72b8Df71072E38E8548F9565A322B04b9C752932&quot;;
+decimal ethAmount = 0.01m;
+
+string transactionHash = await ethereum.Send(toAccount, ethAmount);
+print(transactionHash);
+</code></pre>
+<h2 id="erc1155">ERC1155</h2>
+<p>ERC-1155 contracts have two additonal fields.</p>
+<ul>
+<li>
+<p>Contract address: The address that stores the balances of the token.</p>
+</li>
+<li>
+<p>Token Id: The specific token inside of the contract address.</p>
+</li>
+</ul>
+<p>For example. The contract address <code>0x5e30b1d6f920364c847512e2528efdadf72a97a9</code> can store all digital chess pieces. A pawn can be token id <code>17</code>.</p>
+<h3 id="connect_1">Connect</h3>
+<pre><code class="language-c#">string network = &quot;mainnet&quot;; // mainnet ropsten kovan rinkeby goerli
+string contract = &quot;0x5e30b1d6f920364c847512e2528efdadf72a97a9&quot;;
+ERC1155 erc1155 = new ERC1155(network, contract);
+</code></pre>
+<h3 id="balance-of_1">Balance Of</h3>
+<pre><code class="language-c#">string account = &quot;0xaca9b6d9b1636d99156bb12825c75de1e5a58870&quot;;
+string tokenId = &quot;17&quot;;
+
+BigInteger balance = await erc1155.BalanceOf(account, tokenId);
+print(balance)
+</code></pre>
+<h3 id="balance-of-batch">Balance Of Batch</h3>
+<p>Balance of batch will get the balance of a list of accounts and token ids. For example:</p>
+<p>Get the balance of account <code>0xaCA9B6D9B1636D99156bB12825c75De1E5a58870</code> with token id <code>17</code> and</p>
+<p>balance of account <code>0xaCA9B6D9B1636D99156bB12825c75De1E5a58870</code> with token id <code>22</code></p>
+<pre><code class="language-c#">string[] accounts = { &quot;0xaCA9B6D9B1636D99156bB12825c75De1E5a58870&quot;, &quot;0xaCA9B6D9B1636D99156bB12825c75De1E5a58870&quot; };
+string[] tokenIds = { &quot;17&quot;, &quot;22&quot; };
+
+List&lt;BigInteger&gt; batchBalances = await erc1155.BalanceOfBatch(accounts, tokenIds);
+
+foreach (var balance in batchBalances)
+{
+  print(balance);
+};
+</code></pre>
+<h3 id="safe-transfer-from">Safe Transfer From</h3>
+<p>If <a href="#walletscene">WalletScene</a> is not being used, then a private key is required.</p>
+<pre><code class="language-c#">string privateKey = &quot;0000000000000000000000000000000000000000000000000000000000000001&quot;;
+ERC1155 erc1155 = new ERC1155(network, contract, privateKey);
+
+string fromAccount = &quot;0xaCA9B6D9B1636D99156bB12825c75De1E5a58870&quot;;
+string toAccount = &quot;0x72b8Df71072E38E8548F9565A322B04b9C752932&quot;;
+string tokenId = &quot;17&quot;;
+string tokenAmount = &quot;1&quot;;
+string data = &quot;0x0&quot;;
+
+string transactionHash = await erc1155.SafeTransferFrom(fromAccount, toAccount, tokenId, tokenAmount, data);
+print(transactionHash);
+</code></pre>
+<h3 id="safe-batch-transfer-from">Safe Batch Transfer From</h3>
+<p>Safe batch transfer from will send a list of transactions. For example:</p>
+<p>Send <code>1</code> token with id <code>17</code> and</p>
+<p>Send <code>2</code> tokens with id <code>22</code>.</p>
+<p>If <a href="#walletscene">WalletScene</a> is not being used, then a private key is required.</p>
+<pre><code class="language-c#">string privateKey = &quot;0000000000000000000000000000000000000000000000000000000000000001&quot;;
+ERC1155 erc1155 = new ERC1155(network, contract, privateKey);
+
+string fromAccount = &quot;0xaca9b6d9b1636d99156bb12825c75de1e5a58870&quot;;
+string toAccount = &quot;0x72b8Df71072E38E8548F9565A322B04b9C752932&quot;;
+string[] tokenIds = {&quot;17&quot;, &quot;22&quot;};
+string[] tokenAmounts = {&quot;1&quot;, &quot;2&quot;};
+string data = &quot;0x0&quot;;
+
+string transactionHash = await erc1155.SafeBatchTransferFrom(fromAccount, toAccount, tokenIds, tokenAmounts, data);
+print(transactionHash);
+</code></pre>
+<h3 id="uri">URI</h3>
+<p>Returns meta data about the token.</p>
+<pre><code class="language-c#">string tokenId = &quot;17&quot;;
+string uri = await erc1155.URI(tokenId);
+print(uri);
+</code></pre>
+<h3 id="is-approved-for-all">Is Approved For All</h3>
+<p>Queries the approval status of an operator for a given owner</p>
+<pre><code class="language-c#">string account = &quot;0xaca9b6d9b1636d99156bb12825c75de1e5a58870&quot;;
+string authorizedOperator = &quot;0x3482549fca7511267c9ef7089507c0f16ea1dcc1&quot;;
+
+bool isApproved = await erc1155.IsApprovedForAll(account, authorizedOperator);
+print(isApproved);
+</code></pre>
+<h2 id="wallet">Wallet</h2>
+<p>Public and private key management can either be done through the WalletScene or manually.</p>
+<h3 id="walletscene">WalletScene</h3>
+<p>Add <code>/uToken/Scenes/WalletScene</code> to the beginning of your build settings. To access wallet scene private key and account:</p>
+<pre><code class="language-c#">string password = &quot;&quot;; // default is empty
+string privateKey = UnityWallet.PrivateKey(password);
+print(privateKey);
+
+string account = UnityWallet.Account();
+print(account);
+</code></pre>
+<h3 id="manual">Manual</h3>
+<p>To generate your own account.</p>
+<pre><code class="language-c#">using System;
+using NBitcoin;
+using Nethereum.HdWallet;
+using Nethereum.KeyStore.Model;
+
+void GenerateWallet()
+{
+  // generate mneumonic
+  Mnemonic mnemo = new Mnemonic(Wordlist.English, WordCount.Twelve);
+  // create new wallet
+  var wallet = new Wallet(mnemo.ToString(), &quot;&quot;);
+  // access Hierarchical Deterministic wallet 0
+  var account = wallet.GetAccount(0);
+
+  // encrypt account with password
+  string password = &quot;&quot;;
+  var keyStoreService = new Nethereum.KeyStore.KeyStoreScryptService();
+  var scryptParams = new ScryptParams { Dklen = 32, N = 262144, R = 1, P = 8 };
+  var ecKey = new Nethereum.Signer.EthECKey(account.PrivateKey);
+  var keyStore = keyStoreService.EncryptAndGenerateKeyStore(password, ecKey.GetPrivateKeyAsBytes(), ecKey.GetPublicAddress(), scryptParams);
+  string json = keyStoreService.SerializeKeyStoreToJson(keyStore);
+
+  // decrypt account
+  print(&quot;account: &quot; + account.Address);
+  string decryptedPrivateKey = BitConverter.ToString(keyStoreService.DecryptKeyStoreFromJson(password, json)).Replace(&quot;-&quot;, string.Empty).Replace(&quot;0x&quot;, string.Empty).ToLower();
+  print(&quot;decrypted private key: &quot; + decryptedPrivateKey);
+}
+</code></pre>
+<h2 id="opensea">OpenSea</h2>
+<h3 id="gettokeninfo">GetTokenInfo</h3>
+<p>OpenSea provides an HTTP API for fetching non-fungible assets based on a set of parameters. This is a Unity interface to fetch token asset info.</p>
+<pre><code class="language-c#">using OpenSeaDefinition;
+
+string network = &quot;mainnet&quot;; // mainnet rinkeby
+OpenSea openSea = new OpenSea(network);
+
+string[] contracts = {&quot;0x5e30b1d6f920364c847512e2528efdadf72a97a9&quot;};
+string[] tokenIds = {&quot;9297472344724926092841919778025655237517835814992492894761274101626115719268&quot;, &quot;9297472344724926092841919778025655237517835814992492894761274118118790135908&quot;};
+TokenInfo tokenInfo = await openSea.GetTokenInfo(contracts, tokenIds);
+
+print(JsonUtility.ToJson(tokenInfo, true));
+</code></pre>
+<p><br><br><br><br><br><br></p>
+              
+            </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+      
+    </span>
+</div>
+    <script>var base_url = '.';</script>
+    <script src="js/theme.js" defer></script>
+      <script src="search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
+
+<!--
+MkDocs version : 1.1.2
+Build Date UTC : 2021-01-09 05:41:22.764940+00:00
+-->
