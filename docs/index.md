@@ -232,5 +232,3 @@ TokenInfo tokenInfo = await openSea.GetTokenInfo(contracts, tokenIds);
 
 print(JsonUtility.ToJson(tokenInfo, true));
 ```
-
-<br><br><br><br><br><br>
