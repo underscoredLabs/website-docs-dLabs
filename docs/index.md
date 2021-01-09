@@ -195,6 +195,8 @@ print(account);
 
 ### Safe Transfer From
 
+If [WalletScene](#walletscene) is not being used, then a private key is required.
+
 ```c#
 string privateKey = "0000000000000000000000000000000000000000000000000000000000000001";
 ERC721 erc721 = new ERC721(network, contract, privateKey);
@@ -231,6 +233,8 @@ print("balance in decimals: " + (double)balance / (double)BigInteger.Pow(10, (in
 ```
 
 ### Transfer
+
+If [WalletScene](#walletscene) is not being used, then a private key is required.
 
 ```c#
 string privateKey = "0000000000000000000000000000000000000000000000000000000000000001"; // remove if using WalletScene
