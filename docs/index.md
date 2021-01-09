@@ -173,7 +173,7 @@ string contract = "0xe41d4b6ae91a322c89ecfe7670a154412659e8b0";
 ERC721 erc721= new ERC721(network, contract);
 ```
 
-### BalanceOf
+### Balance Of
 
 Counts all NFTs assigned to an owner
 
@@ -183,7 +183,7 @@ BigInteger balance = await erc721.BalanceOf(account);
 print(balance);
 ```
 
-### OwnerOf
+### Owner Of
 
 Find the owner of a NFT 
 

@@ -82,6 +82,18 @@
     </li>
         </ul>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#erc721">ERC721</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#connect_2">Connect</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#balanceof">BalanceOf</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#ownerof">OwnerOf</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#safe-transfer-from_1">Safe Transfer From</a>
+    </li>
+        </ul>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#wallet">Wallet</a>
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#walletscene">WalletScene</a>
@@ -243,6 +255,36 @@ string authorizedOperator = &quot;0x3482549fca7511267c9ef7089507c0f16ea1dcc1&quo
 bool isApproved = await erc1155.IsApprovedForAll(account, authorizedOperator);
 print(isApproved);
 </code></pre>
+<h2 id="erc721">ERC721</h2>
+<h3 id="connect_2">Connect</h3>
+<pre><code class="language-c#">string network = &quot;rinkeby&quot;; // mainnet ropsten kovan rinkeby goerli
+string contract = &quot;0xe41d4b6ae91a322c89ecfe7670a154412659e8b0&quot;;
+ERC721 erc721= new ERC721(network, contract);
+</code></pre>
+<h3 id="balanceof">BalanceOf</h3>
+<p>Counts all NFTs assigned to an owner</p>
+<pre><code class="language-c#">string account = &quot;0x72b8Df71072E38E8548F9565A322B04b9C752932&quot;;
+BigInteger balance = await erc721.BalanceOf(account);
+print(balance);
+</code></pre>
+<h3 id="ownerof">OwnerOf</h3>
+<p>Find the owner of a NFT </p>
+<pre><code class="language-c#">string tokenId = &quot;12&quot;;
+string account = await erc721.OwnerOf(tokenId);
+print(account);
+</code></pre>
+<h3 id="safe-transfer-from_1">Safe Transfer From</h3>
+<pre><code class="language-c#">string privateKey = &quot;0000000000000000000000000000000000000000000000000000000000000001&quot;;
+ERC721 erc721 = new ERC721(network, contract, privateKey);
+
+string fromAccount = &quot;0x72b8Df71072E38E8548F9565A322B04b9C752932&quot;;
+string toAccount = &quot;0xaCA9B6D9B1636D99156bB12825c75De1E5a58870&quot;;
+string tokenId = &quot;12&quot;;
+string data = &quot;0x0&quot;;
+
+string transactionHash = await erc721.SafeTransferFrom(fromAccount, toAccount, tokenId, data);
+print(transactionHash);
+</code></pre>
 <h2 id="wallet">Wallet</h2>
 <p>Public and private key management can either be done through the WalletScene or manually.</p>
 <h3 id="walletscene">WalletScene</h3>
@@ -342,5 +384,5 @@ print(JsonUtility.ToJson(tokenInfo, true));
 
 <!--
 MkDocs version : 1.1.2
-Build Date UTC : 2021-01-09 05:46:17.521494+00:00
+Build Date UTC : 2021-01-09 15:38:41.612848+00:00
 -->
