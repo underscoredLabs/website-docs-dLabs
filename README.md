@@ -19,5 +19,5 @@ $ mkdocs serve
 
 ## Publishing
 ```bash
-$ mkdocs gh-deployh
+$ mkdocs gh-deploy
 ```
