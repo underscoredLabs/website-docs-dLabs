@@ -292,6 +292,7 @@ string account = await erc721.OwnerOf(tokenId);
 print(account);
 </code></pre>
 <h3 id="safe-transfer-from_1">Safe Transfer From</h3>
+<p>If <a href="#walletscene">WalletScene</a> is not being used, then a private key is required.</p>
 <pre><code class="language-c#">string privateKey = &quot;0000000000000000000000000000000000000000000000000000000000000001&quot;;
 ERC721 erc721 = new ERC721(network, contract, privateKey);
 
@@ -319,6 +320,7 @@ print(&quot;blance in smallest unit: &quot; + balance);
 print(&quot;balance in decimals: &quot; + (double)balance / (double)BigInteger.Pow(10, (int)decimals));
 </code></pre>
 <h3 id="transfer">Transfer</h3>
+<p>If <a href="#walletscene">WalletScene</a> is not being used, then a private key is required.</p>
 <pre><code class="language-c#">string privateKey = &quot;0000000000000000000000000000000000000000000000000000000000000001&quot;; // remove if using WalletScene
 ERC20 erc20 = new ERC20(network, contract, privateKey);
 
@@ -447,5 +449,5 @@ print(JsonUtility.ToJson(tokenInfo, true));
 
 <!--
 MkDocs version : 1.1.2
-Build Date UTC : 2021-01-09 17:19:35.352458+00:00
+Build Date UTC : 2021-01-09 17:22:27.224467+00:00
 -->

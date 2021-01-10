@@ -336,13 +336,19 @@ void GenerateWallet()
 
 ## OpenSea
 
-### GetTokenInfo
+OpenSea provides an HTTP API for fetching non-fungible assets based on a set of parameters.
 
-OpenSea provides an HTTP API for fetching non-fungible assets based on a set of parameters. This is a Unity interface to fetch token asset info.
+### Definitions
+
+Defines the structure of info and orders.
 
 ```c#
 using OpenSeaDefinition;
+```
 
+### Get Token Info
+
+```c#
 string network = "mainnet"; // mainnet rinkeby
 OpenSea openSea = new OpenSea(network);
 
@@ -351,4 +357,17 @@ string[] tokenIds = {"9297472344724926092841919778025655237517835814992492894761
 TokenInfo tokenInfo = await openSea.GetTokenInfo(contracts, tokenIds);
 
 print(JsonUtility.ToJson(tokenInfo, true));
+```
+
+### Get Token Orders
+
+```c#
+string network = "rinkeby"; // mainnet rinkeby
+OpenSea openSea = new OpenSea(network);
+
+string[] contracts = { "0x2ebecabbbe8a8c629b99ab23ed154d74cd5d4342" };
+string[] tokenIds = { "22" };
+TokenOrders tokenOrders = await openSea.GetOrders(contracts, tokenIds);
+
+print(JsonUtility.ToJson(tokenOrders, true));
 ```
