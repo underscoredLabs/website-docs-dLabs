@@ -122,7 +122,11 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#opensea">OpenSea</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#gettokeninfo">GetTokenInfo</a>
+    <li class="toctree-l3"><a class="reference internal" href="#definitions">Definitions</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#get-token-info">Get Token Info</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#get-token-orders">Get Token Orders</a>
     </li>
         </ul>
     </li>
@@ -392,11 +396,13 @@ void GenerateWallet()
 }
 </code></pre>
 <h2 id="opensea">OpenSea</h2>
-<h3 id="gettokeninfo">GetTokenInfo</h3>
-<p>OpenSea provides an HTTP API for fetching non-fungible assets based on a set of parameters. This is a Unity interface to fetch token asset info.</p>
+<p>OpenSea provides an HTTP API for fetching non-fungible assets based on a set of parameters.</p>
+<h3 id="definitions">Definitions</h3>
+<p>Defines the structure of info and orders.</p>
 <pre><code class="language-c#">using OpenSeaDefinition;
-
-string network = &quot;mainnet&quot;; // mainnet rinkeby
+</code></pre>
+<h3 id="get-token-info">Get Token Info</h3>
+<pre><code class="language-c#">string network = &quot;mainnet&quot;; // mainnet rinkeby
 OpenSea openSea = new OpenSea(network);
 
 string[] contracts = {&quot;0x5e30b1d6f920364c847512e2528efdadf72a97a9&quot;};
@@ -404,6 +410,16 @@ string[] tokenIds = {&quot;92974723447249260928419197780256552375178358149924928
 TokenInfo tokenInfo = await openSea.GetTokenInfo(contracts, tokenIds);
 
 print(JsonUtility.ToJson(tokenInfo, true));
+</code></pre>
+<h3 id="get-token-orders">Get Token Orders</h3>
+<pre><code class="language-c#">string network = &quot;rinkeby&quot;; // mainnet rinkeby
+OpenSea openSea = new OpenSea(network);
+
+string[] contracts = { &quot;0x2ebecabbbe8a8c629b99ab23ed154d74cd5d4342&quot; };
+string[] tokenIds = { &quot;22&quot; };
+TokenOrders tokenOrders = await openSea.GetOrders(contracts, tokenIds);
+
+print(JsonUtility.ToJson(tokenOrders, true));
 </code></pre>
               
             </div>
@@ -449,5 +465,5 @@ print(JsonUtility.ToJson(tokenInfo, true));
 
 <!--
 MkDocs version : 1.1.2
-Build Date UTC : 2021-01-09 17:22:27.224467+00:00
+Build Date UTC : 2021-01-10 16:37:11.915088+00:00
 -->
