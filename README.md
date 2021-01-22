@@ -1,14 +1,14 @@
-# uToken-website
+# _dLabs Docs
 
-https://utoken.dev/
+https://docs.underscoredlabs.com
 
 ## Installing
 
 ```bash
 # https://www.mkdocs.org/
 $ pip install mkdocs
-$ git clone git@github.com:underscoredLabs/website-uToken.git
-$ cd website-uToken
+$ git clone git@github.com:underscoredLabs/website-dLabs-docs.git
+$ cd website-dLabs-docs
 ```
 
 ## Development

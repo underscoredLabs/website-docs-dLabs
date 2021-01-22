@@ -1,9 +1,9 @@
 ---
-title: uToken
+title: _dLabs SDK 
 summary: A plugin bridging Ethereum Tokens to Unity.
 ---
 
-# uToken Documentation
+# _dLabs Documentation
 
 A plugin to bridge Unity to Ethereum Tokens.
 
@@ -289,7 +289,7 @@ Public and private key management can either be done through the WalletScene or 
 
 ### WalletScene
 
-Add `/uToken/Scenes/WalletScene` to the beginning of your build settings. To access wallet scene private key and account:
+Add `/_dLabs/Scenes/WalletScene` to the beginning of your build settings. To access wallet scene private key and account:
 
 ```c#
 string password = ""; // default is empty
