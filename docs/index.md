@@ -346,20 +346,20 @@ Defines the structure of info and orders.
 using OpenSeaDefinition;
 ```
 
-### Get Token Info
+### Get Info
 
 ```c#
 string network = "mainnet"; // mainnet rinkeby
 OpenSea openSea = new OpenSea(network);
 
-string[] contracts = {"0x5e30b1d6f920364c847512e2528efdadf72a97a9"};
-string[] tokenIds = {"9297472344724926092841919778025655237517835814992492894761274101626115719268", "9297472344724926092841919778025655237517835814992492894761274118118790135908"};
-TokenInfo tokenInfo = await openSea.GetTokenInfo(contracts, tokenIds);
+string[] contracts = { "0x5e30b1d6f920364c847512e2528efdadf72a97a9" };
+string[] tokenIds = { "9297472344724926092841919778025655237517835814992492894761274101626115719268", "9297472344724926092841919778025655237517835814992492894761274118118790135908" };
+TokenInfo tokenInfo = await openSea.GetInfo(contracts, tokenIds);
 
 print(JsonUtility.ToJson(tokenInfo, true));
 ```
 
-### Get Token Orders
+### Get Orders
 
 ```c#
 string network = "rinkeby"; // mainnet rinkeby
