@@ -128,6 +128,8 @@
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#get-token-orders">Get Token Orders</a>
     </li>
+    <li class="toctree-l3"><a class="reference internal" href="#buy">Buy</a>
+    </li>
         </ul>
     </li>
     </ul>
@@ -421,6 +423,18 @@ TokenOrders tokenOrders = await openSea.GetOrders(contracts, tokenIds);
 
 print(JsonUtility.ToJson(tokenOrders, true));
 </code></pre>
+<h3 id="buy">Buy</h3>
+<p>If <a href="#walletscene">WalletScene</a> is not being used, then a private key is required.</p>
+<pre><code class="language-c#">string network = &quot;rinkeby&quot;; // mainnet rinkeby
+string privateKey = &quot;0000000000000000000000000000000000000000000000000000000000000001&quot;; // remove if using WalletScene
+OpenSea openSea = new OpenSea(network, privateKey);
+
+string contract = &quot;0xe41d4b6ae91a322c89ecfe7670a154412659e8b0&quot;;
+string tokenId = &quot;12&quot;;
+
+string transactionHash = await openSea.Buy(contract, tokenId);
+print(transactionHash);
+</code></pre>
               
             </div>
           </div>
@@ -465,5 +479,5 @@ print(JsonUtility.ToJson(tokenOrders, true));
 
 <!--
 MkDocs version : 1.1.2
-Build Date UTC : 2021-01-22 03:39:21.476149+00:00
+Build Date UTC : 2021-02-01 16:52:12.205330+00:00
 -->
