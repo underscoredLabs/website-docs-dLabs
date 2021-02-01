@@ -124,9 +124,9 @@
         <ul>
     <li class="toctree-l3"><a class="reference internal" href="#definitions">Definitions</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#get-token-info">Get Token Info</a>
+    <li class="toctree-l3"><a class="reference internal" href="#get-info">Get Info</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#get-token-orders">Get Token Orders</a>
+    <li class="toctree-l3"><a class="reference internal" href="#get-orders">Get Orders</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#buy">Buy</a>
     </li>
@@ -403,17 +403,17 @@ void GenerateWallet()
 <p>Defines the structure of info and orders.</p>
 <pre><code class="language-c#">using OpenSeaDefinition;
 </code></pre>
-<h3 id="get-token-info">Get Token Info</h3>
+<h3 id="get-info">Get Info</h3>
 <pre><code class="language-c#">string network = &quot;mainnet&quot;; // mainnet rinkeby
 OpenSea openSea = new OpenSea(network);
 
-string[] contracts = {&quot;0x5e30b1d6f920364c847512e2528efdadf72a97a9&quot;};
-string[] tokenIds = {&quot;9297472344724926092841919778025655237517835814992492894761274101626115719268&quot;, &quot;9297472344724926092841919778025655237517835814992492894761274118118790135908&quot;};
-TokenInfo tokenInfo = await openSea.GetTokenInfo(contracts, tokenIds);
+string[] contracts = { &quot;0x5e30b1d6f920364c847512e2528efdadf72a97a9&quot; };
+string[] tokenIds = { &quot;9297472344724926092841919778025655237517835814992492894761274101626115719268&quot;, &quot;9297472344724926092841919778025655237517835814992492894761274118118790135908&quot; };
+TokenInfo tokenInfo = await openSea.GetInfo(contracts, tokenIds);
 
 print(JsonUtility.ToJson(tokenInfo, true));
 </code></pre>
-<h3 id="get-token-orders">Get Token Orders</h3>
+<h3 id="get-orders">Get Orders</h3>
 <pre><code class="language-c#">string network = &quot;rinkeby&quot;; // mainnet rinkeby
 OpenSea openSea = new OpenSea(network);
 
@@ -479,5 +479,5 @@ print(transactionHash);
 
 <!--
 MkDocs version : 1.1.2
-Build Date UTC : 2021-02-01 16:53:16.692679+00:00
+Build Date UTC : 2021-02-01 17:24:42.448319+00:00
 -->
