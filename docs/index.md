@@ -371,3 +371,19 @@ TokenOrders tokenOrders = await openSea.GetOrders(contracts, tokenIds);
 
 print(JsonUtility.ToJson(tokenOrders, true));
 ```
+
+### Buy
+
+If [WalletScene](#walletscene) is not being used, then a private key is required.
+
+```c#
+string network = "rinkeby"; // mainnet rinkeby
+string privateKey = "0000000000000000000000000000000000000000000000000000000000000001"; // remove if using WalletScene
+OpenSea openSea = new OpenSea(network, privateKey);
+
+string contract = "0xe41d4b6ae91a322c89ecfe7670a154412659e8b0";
+string tokenId = "12";
+
+string transactionHash = await openSea.Buy(contract, tokenId);
+print(transactionHash);
+```
