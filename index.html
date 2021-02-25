@@ -114,21 +114,9 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#wallet">Wallet</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#walletscene">WalletScene</a>
+    <li class="toctree-l3"><a class="reference internal" href="#loginscene">LoginScene</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#manual">Manual</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#opensea">OpenSea</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#definitions">Definitions</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#get-info">Get Info</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#get-orders">Get Orders</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#buy">Buy</a>
     </li>
         </ul>
     </li>
@@ -358,17 +346,13 @@ print(totalSupply);
 </code></pre>
 <h2 id="wallet">Wallet</h2>
 <p>Public and private key management can either be done through the WalletScene or manually.</p>
-<h3 id="walletscene">WalletScene</h3>
-<p>Add <code>/_dLabs/Scenes/WalletScene</code> to the beginning of your build settings. To access wallet scene private key and account:</p>
-<pre><code class="language-c#">string password = &quot;&quot;; // default is empty
-string privateKey = UnityWallet.PrivateKey(password);
-print(privateKey);
-
-string account = UnityWallet.Account();
+<h3 id="loginscene">LoginScene</h3>
+<p>After Login Scene <code>_Config.cs</code> will store user account. This can be accessed in any scene.</p>
+<pre><code class="language-c#">string account = _Config.Account();
 print(account);
 </code></pre>
 <h3 id="manual">Manual</h3>
-<p>To generate your own account.</p>
+<p>Manually generate account.</p>
 <pre><code class="language-c#">using System;
 using NBitcoin;
 using Nethereum.HdWallet;
@@ -384,7 +368,7 @@ void GenerateWallet()
   var account = wallet.GetAccount(0);
 
   // encrypt account with password
-  string password = &quot;&quot;;
+  string password = &quot;secure-password-here&quot;;
   var keyStoreService = new Nethereum.KeyStore.KeyStoreScryptService();
   var scryptParams = new ScryptParams { Dklen = 32, N = 262144, R = 1, P = 8 };
   var ecKey = new Nethereum.Signer.EthECKey(account.PrivateKey);
@@ -396,44 +380,6 @@ void GenerateWallet()
   string decryptedPrivateKey = BitConverter.ToString(keyStoreService.DecryptKeyStoreFromJson(password, json)).Replace(&quot;-&quot;, string.Empty).Replace(&quot;0x&quot;, string.Empty).ToLower();
   print(&quot;decrypted private key: &quot; + decryptedPrivateKey);
 }
-</code></pre>
-<h2 id="opensea">OpenSea</h2>
-<p>OpenSea provides an HTTP API for fetching non-fungible assets based on a set of parameters.</p>
-<h3 id="definitions">Definitions</h3>
-<p>Defines the structure of info and orders.</p>
-<pre><code class="language-c#">using OpenSeaDefinition;
-</code></pre>
-<h3 id="get-info">Get Info</h3>
-<pre><code class="language-c#">string network = &quot;mainnet&quot;; // mainnet rinkeby
-OpenSea openSea = new OpenSea(network);
-
-string[] contracts = { &quot;0x5e30b1d6f920364c847512e2528efdadf72a97a9&quot; };
-string[] tokenIds = { &quot;9297472344724926092841919778025655237517835814992492894761274101626115719268&quot;, &quot;9297472344724926092841919778025655237517835814992492894761274118118790135908&quot; };
-TokenInfo tokenInfo = await openSea.GetInfo(contracts, tokenIds);
-
-print(JsonUtility.ToJson(tokenInfo, true));
-</code></pre>
-<h3 id="get-orders">Get Orders</h3>
-<pre><code class="language-c#">string network = &quot;rinkeby&quot;; // mainnet rinkeby
-OpenSea openSea = new OpenSea(network);
-
-string[] contracts = { &quot;0x2ebecabbbe8a8c629b99ab23ed154d74cd5d4342&quot; };
-string[] tokenIds = { &quot;22&quot; };
-TokenOrders tokenOrders = await openSea.GetOrders(contracts, tokenIds);
-
-print(JsonUtility.ToJson(tokenOrders, true));
-</code></pre>
-<h3 id="buy">Buy</h3>
-<p>If <a href="#walletscene">WalletScene</a> is not being used, then a private key is required.</p>
-<pre><code class="language-c#">string network = &quot;rinkeby&quot;; // mainnet rinkeby
-string privateKey = &quot;0000000000000000000000000000000000000000000000000000000000000001&quot;; // remove if using WalletScene
-OpenSea openSea = new OpenSea(network, privateKey);
-
-string contract = &quot;0xe41d4b6ae91a322c89ecfe7670a154412659e8b0&quot;;
-string tokenId = &quot;12&quot;;
-
-string transactionHash = await openSea.Buy(contract, tokenId);
-print(transactionHash);
 </code></pre>
               
             </div>
@@ -479,5 +425,5 @@ print(transactionHash);
 
 <!--
 MkDocs version : 1.1.2
-Build Date UTC : 2021-02-01 17:24:42.448319+00:00
+Build Date UTC : 2021-02-25 20:19:57.284922+00:00
 -->
