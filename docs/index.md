@@ -289,7 +289,7 @@ Public and private key management can either be done through the WalletScene or 
 
 ### LoginScene
 
-After Login Scene `_Config.cs` will store user account. This can be accessed in any scene.
+After Login Scene `_Config.cs` will store user info. This can be accessed in any scene.
 
 ```c#
 string account = _Config.Account();
