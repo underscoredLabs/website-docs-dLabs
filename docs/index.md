@@ -287,22 +287,18 @@ print(totalSupply);
 
 Public and private key management can either be done through the WalletScene or manually.
 
-### WalletScene
+### LoginScene
 
-Add `/_dLabs/Scenes/WalletScene` to the beginning of your build settings. To access wallet scene private key and account:
+After Login Scene `_Config.cs` will store user account. This can be accessed in any scene.
 
 ```c#
-string password = ""; // default is empty
-string privateKey = UnityWallet.PrivateKey(password);
-print(privateKey);
-
-string account = UnityWallet.Account();
+string account = _Config.Account();
 print(account);
 ```
 
 ### Manual
 
-To generate your own account.
+Manually generate account.
 
 ```c#
 using System;
@@ -320,7 +316,7 @@ void GenerateWallet()
   var account = wallet.GetAccount(0);
 
   // encrypt account with password
-  string password = "";
+  string password = "secure-password-here";
   var keyStoreService = new Nethereum.KeyStore.KeyStoreScryptService();
   var scryptParams = new ScryptParams { Dklen = 32, N = 262144, R = 1, P = 8 };
   var ecKey = new Nethereum.Signer.EthECKey(account.PrivateKey);
@@ -334,56 +330,3 @@ void GenerateWallet()
 }
 ```
 
-## OpenSea
-
-OpenSea provides an HTTP API for fetching non-fungible assets based on a set of parameters.
-
-### Definitions
-
-Defines the structure of info and orders.
-
-```c#
-using OpenSeaDefinition;
-```
-
-### Get Info
-
-```c#
-string network = "mainnet"; // mainnet rinkeby
-OpenSea openSea = new OpenSea(network);
-
-string[] contracts = { "0x5e30b1d6f920364c847512e2528efdadf72a97a9" };
-string[] tokenIds = { "9297472344724926092841919778025655237517835814992492894761274101626115719268", "9297472344724926092841919778025655237517835814992492894761274118118790135908" };
-TokenInfo tokenInfo = await openSea.GetInfo(contracts, tokenIds);
-
-print(JsonUtility.ToJson(tokenInfo, true));
-```
-
-### Get Orders
-
-```c#
-string network = "rinkeby"; // mainnet rinkeby
-OpenSea openSea = new OpenSea(network);
-
-string[] contracts = { "0x2ebecabbbe8a8c629b99ab23ed154d74cd5d4342" };
-string[] tokenIds = { "22" };
-TokenOrders tokenOrders = await openSea.GetOrders(contracts, tokenIds);
-
-print(JsonUtility.ToJson(tokenOrders, true));
-```
-
-### Buy
-
-If [WalletScene](#walletscene) is not being used, then a private key is required.
-
-```c#
-string network = "rinkeby"; // mainnet rinkeby
-string privateKey = "0000000000000000000000000000000000000000000000000000000000000001"; // remove if using WalletScene
-OpenSea openSea = new OpenSea(network, privateKey);
-
-string contract = "0xe41d4b6ae91a322c89ecfe7670a154412659e8b0";
-string tokenId = "12";
-
-string transactionHash = await openSea.Buy(contract, tokenId);
-print(transactionHash);
-```
