@@ -285,7 +285,7 @@ print(totalSupply);
 
 ## Wallet
 
-Public and private key management can either be done through the WalletScene or manually.
+[![](https://user-images.githubusercontent.com/19412160/109343259-0d829f80-783b-11eb-9324-9962cd2b0c8c.png)](https://www.youtube.com/watch?v=PSydAY9ps-I)
 
 ### LoginScene
 
