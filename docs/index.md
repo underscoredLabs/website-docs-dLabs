@@ -1,9 +1,9 @@
 ---
-title: _dLabs SDK 
+title: _dLabs SDK
 summary: A plugin bridging Ethereum Tokens to Unity.
 ---
 
-# _dLabs Documentation
+# \_dLabs Documentation
 
 A plugin to bridge Unity to Ethereum Tokens.
 
@@ -20,35 +20,63 @@ string network = "mainnet"; // mainnet ropsten kovan rinkeby goerli
 Ethereum ethereum = new Ethereum(network);
 ```
 
-### Block Height
-
-```c#
-BigInteger blockHeight = await ethereum.BlockHeight();
-print(blockHeight);
-```
-
 ### Balance Of
 
 ```c#
-string account  = "0xaca9b6d9b1636d99156bb12825c75de1e5a58870";
+string account = "0x99C85bb64564D9eF9A99621301f22C9993Cb89E3";
+
 BigInteger wei = await ethereum.BalanceOf(account);
-print("wei: " + wei);
-print("eth: " + Web3.Convert.FromWei(wei));
+print(wei);
 ```
 
-### Send
+### Create Transaction
 
-If [WalletScene](#walletscene) is not being used, then a private key is required.
+Create an unsigned transaction. User can sign offline.
 
 ```c#
-string privateKey = "0000000000000000000000000000000000000000000000000000000000000001";
-Ethereum ethereum = new Ethereum(network, privateKey);
+string from = "0x35706484aB20Cbf22F5c7a375D5764DA8166aE1c";
+string to = "0x7E3bE66431ba73956213C40C0828355D1A7894D3";
+string eth = "1";
 
-string toAccount = "0x72b8Df71072E38E8548F9565A322B04b9C752932";
-decimal ethAmount = 0.01m;
+Transaction transaction = await ethereum.CreateTransaction(from, to, eth);
 
-string transactionHash = await ethereum.Send(toAccount, ethAmount);
+print("network: " + transaction.network);
+print("to: " + transaction.to);
+print("wei: " + transaction.wei);
+print("nonce: " + transaction.nonce);
+print("gasLimit: " + transaction.gasLimit);
+print("gasPrice: " + transaction.gasPrice);
+print("hex: " + transaction.hex);
+```
+
+### Broadcast Transaction
+
+Broadcast a signed transaction.
+
+```c#
+string network = "rinkeby"; // mainnet ropsten kovan rinkeby goerli
+Ethereum ethereum = new Ethereum(network);
+
+// using the private key to sign transaction
+string signedTransaction = "0xf86b04843b9aca0083989680947e3be66431ba73956213c40c0828355d1a7894d38703f18a03b36000802ca0043ab6289f2a44dd911bfb3658cfac12710354a3e0cef35544c9348b15f9f6f7a018d36b8d5b61dc00a54293528d0edd8a4a7c9f064817825c7e8cb8167b240860";
+
+string transactionHash = await ethereum.Broadcast(signedTransaction);
 print(transactionHash);
+```
+
+### Verify
+
+Verify a signed message.
+
+```c#
+string network = "mainnet"; // mainnet ropsten kovan rinkeby goerli
+Ethereum ethereum = new Ethereum(network);
+
+string message = "YOUR_MESSAGE";
+string signature = "0x94bdbebbd0180195b89721a55c3a436a194358c9b3c4eafd22484085563ff55e49a4552904266a5b56662b280757f6aad3b2ab91509daceef4e5b3016afd34781b";
+
+string account = await ethereum.Verify(message, signature);
+print (account); // 0xC52C1FB0B9681e1c80e5AdA8eEeD992C0C2706eE
 ```
 
 ## ERC1155
@@ -99,48 +127,6 @@ foreach (var balance in batchBalances)
 };
 ```
 
-### Safe Transfer From
-
-If [WalletScene](#walletscene) is not being used, then a private key is required.
-
-```c#
-string privateKey = "0000000000000000000000000000000000000000000000000000000000000001";
-ERC1155 erc1155 = new ERC1155(network, contract, privateKey);
-
-string fromAccount = "0xaCA9B6D9B1636D99156bB12825c75De1E5a58870";
-string toAccount = "0x72b8Df71072E38E8548F9565A322B04b9C752932";
-string tokenId = "17";
-string tokenAmount = "1";
-string data = "0x0";
-
-string transactionHash = await erc1155.SafeTransferFrom(fromAccount, toAccount, tokenId, tokenAmount, data);
-print(transactionHash);
-```
-
-### Safe Batch Transfer From
-
-Safe batch transfer from will send a list of transactions. For example:
-
-Send `1` token with id `17` and
-
-Send `2` tokens with id `22`.
-
-If [WalletScene](#walletscene) is not being used, then a private key is required.
-
-```c#
-string privateKey = "0000000000000000000000000000000000000000000000000000000000000001";
-ERC1155 erc1155 = new ERC1155(network, contract, privateKey);
-
-string fromAccount = "0xaca9b6d9b1636d99156bb12825c75de1e5a58870";
-string toAccount = "0x72b8Df71072E38E8548F9565A322B04b9C752932";
-string[] tokenIds = {"17", "22"};
-string[] tokenAmounts = {"1", "2"};
-string data = "0x0";
-
-string transactionHash = await erc1155.SafeBatchTransferFrom(fromAccount, toAccount, tokenIds, tokenAmounts, data);
-print(transactionHash);
-```
-
 ### URI
 
 Returns meta data about the token.
@@ -185,29 +171,12 @@ print(balance);
 
 ### Owner Of
 
-Find the owner of a NFT 
+Find the owner of a NFT
 
 ```c#
 string tokenId = "12";
 string account = await erc721.OwnerOf(tokenId);
 print(account);
-```
-
-### Safe Transfer From
-
-If [WalletScene](#walletscene) is not being used, then a private key is required.
-
-```c#
-string privateKey = "0000000000000000000000000000000000000000000000000000000000000001";
-ERC721 erc721 = new ERC721(network, contract, privateKey);
-
-string fromAccount = "0x72b8Df71072E38E8548F9565A322B04b9C752932";
-string toAccount = "0xaCA9B6D9B1636D99156bB12825c75De1E5a58870";
-string tokenId = "12";
-string data = "0x0";
-
-string transactionHash = await erc721.SafeTransferFrom(fromAccount, toAccount, tokenId, data);
-print(transactionHash);
 ```
 
 ## ERC20
@@ -230,21 +199,6 @@ BigInteger balance = await erc20.BalanceOf(account);
 BigInteger decimals = 18;
 print("blance in smallest unit: " + balance);
 print("balance in decimals: " + (double)balance / (double)BigInteger.Pow(10, (int)decimals));
-```
-
-### Transfer
-
-If [WalletScene](#walletscene) is not being used, then a private key is required.
-
-```c#
-string privateKey = "0000000000000000000000000000000000000000000000000000000000000001"; // remove if using WalletScene
-ERC20 erc20 = new ERC20(network, contract, privateKey);
-
-string toAccount = "0x72b8Df71072E38E8548F9565A322B04b9C752932";
-string amount = "100000000000000000"; // in smallest unit
-
-string transactionHash = await erc20.Transfer(toAccount, amount);
-print(transactionHash);
 ```
 
 ### Name
@@ -295,38 +249,3 @@ After Login Scene `_Config.cs` will store user info. This can be accessed in any
 string account = _Config.Account();
 print(account);
 ```
-
-### Manual
-
-Manually generate account.
-
-```c#
-using System;
-using NBitcoin;
-using Nethereum.HdWallet;
-using Nethereum.KeyStore.Model;
-
-void GenerateWallet()
-{
-  // generate mneumonic
-  Mnemonic mnemo = new Mnemonic(Wordlist.English, WordCount.Twelve);
-  // create new wallet
-  var wallet = new Wallet(mnemo.ToString(), "");
-  // access Hierarchical Deterministic wallet 0
-  var account = wallet.GetAccount(0);
-
-  // encrypt account with password
-  string password = "secure-password-here";
-  var keyStoreService = new Nethereum.KeyStore.KeyStoreScryptService();
-  var scryptParams = new ScryptParams { Dklen = 32, N = 262144, R = 1, P = 8 };
-  var ecKey = new Nethereum.Signer.EthECKey(account.PrivateKey);
-  var keyStore = keyStoreService.EncryptAndGenerateKeyStore(password, ecKey.GetPrivateKeyAsBytes(), ecKey.GetPublicAddress(), scryptParams);
-  string json = keyStoreService.SerializeKeyStoreToJson(keyStore);
-
-  // decrypt account
-  print("account: " + account.Address);
-  string decryptedPrivateKey = BitConverter.ToString(keyStoreService.DecryptKeyStoreFromJson(password, json)).Replace("-", string.Empty).Replace("0x", string.Empty).ToLower();
-  print("decrypted private key: " + decryptedPrivateKey);
-}
-```
-
