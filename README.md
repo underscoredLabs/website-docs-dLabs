@@ -1,6 +1,7 @@
 # _dLabs Docs
 
-https://docs.underscoredlabs.com
+https://utoken.dev
+
 
 ## Installing
 
