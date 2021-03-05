@@ -54,8 +54,6 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#ethereum">Ethereum</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#connect">Connect</a>
-    </li>
     <li class="toctree-l3"><a class="reference internal" href="#balance-of">Balance Of</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#create-transaction">Create Transaction</a>
@@ -68,8 +66,6 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#erc1155">ERC1155</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#connect_1">Connect</a>
-    </li>
     <li class="toctree-l3"><a class="reference internal" href="#balance-of_1">Balance Of</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#balance-of-batch">Balance Of Batch</a>
@@ -82,8 +78,6 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#erc721">ERC721</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#connect_2">Connect</a>
-    </li>
     <li class="toctree-l3"><a class="reference internal" href="#balance-of_2">Balance Of</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#owner-of">Owner Of</a>
@@ -92,8 +86,6 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#erc20">ERC20</a>
         <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#connect_3">Connect</a>
-    </li>
     <li class="toctree-l3"><a class="reference internal" href="#balance-of_3">Balance Of</a>
     </li>
     <li class="toctree-l3"><a class="reference internal" href="#name">Name</a>
@@ -152,23 +144,21 @@
 <h2 id="introduction">Introduction</h2>
 <p><a href="https://www.youtube.com/watch?v=_XnB1BjUSvQ"><img alt="Watch the video" src="https://user-images.githubusercontent.com/19412160/103559601-66aa0480-4e84-11eb-803a-6f854e93640a.png" /></a></p>
 <h2 id="ethereum">Ethereum</h2>
-<h3 id="connect">Connect</h3>
-<pre><code class="language-c#">string network = &quot;mainnet&quot;; // mainnet ropsten kovan rinkeby goerli
-Ethereum ethereum = new Ethereum(network);
-</code></pre>
 <h3 id="balance-of">Balance Of</h3>
-<pre><code class="language-c#">string account = &quot;0x99C85bb64564D9eF9A99621301f22C9993Cb89E3&quot;;
+<pre><code class="language-c#">string network = &quot;mainnet&quot;; // mainnet ropsten kovan rinkeby goerli
+string account = &quot;0x99C85bb64564D9eF9A99621301f22C9993Cb89E3&quot;;
 
-BigInteger wei = await ethereum.BalanceOf(account);
-print(wei);
+BigInteger wei = await Ethereum.BalanceOf(network, account);
+print(&quot;wei: &quot; + wei);
 </code></pre>
 <h3 id="create-transaction">Create Transaction</h3>
 <p>Create an unsigned transaction. User can sign offline.</p>
-<pre><code class="language-c#">string from = &quot;0x35706484aB20Cbf22F5c7a375D5764DA8166aE1c&quot;;
+<pre><code class="language-c#">string network = &quot;rinkeby&quot;; // mainnet ropsten kovan rinkeby goerli
+string from = &quot;0x35706484aB20Cbf22F5c7a375D5764DA8166aE1c&quot;;
 string to = &quot;0x7E3bE66431ba73956213C40C0828355D1A7894D3&quot;;
-string eth = &quot;1&quot;;
+string eth = &quot;0.00111&quot;;
 
-Transaction transaction = await ethereum.CreateTransaction(from, to, eth);
+Transaction transaction = await Ethereum.CreateTransaction(network, from, to, eth);
 
 print(&quot;network: &quot; + transaction.network);
 print(&quot;to: &quot; + transaction.to);
@@ -181,23 +171,18 @@ print(&quot;hex: &quot; + transaction.hex);
 <h3 id="broadcast-transaction">Broadcast Transaction</h3>
 <p>Broadcast a signed transaction.</p>
 <pre><code class="language-c#">string network = &quot;rinkeby&quot;; // mainnet ropsten kovan rinkeby goerli
-Ethereum ethereum = new Ethereum(network);
-
-// using the private key to sign transaction
 string signedTransaction = &quot;0xf86b04843b9aca0083989680947e3be66431ba73956213c40c0828355d1a7894d38703f18a03b36000802ca0043ab6289f2a44dd911bfb3658cfac12710354a3e0cef35544c9348b15f9f6f7a018d36b8d5b61dc00a54293528d0edd8a4a7c9f064817825c7e8cb8167b240860&quot;;
 
-string transactionHash = await ethereum.Broadcast(signedTransaction);
-print(transactionHash);
+string transactionHash = await Ethereum.Broadcast(network, signedTransaction);
+print (transactionHash);
 </code></pre>
 <h3 id="verify">Verify</h3>
 <p>Verify a signed message.</p>
 <pre><code class="language-c#">string network = &quot;mainnet&quot;; // mainnet ropsten kovan rinkeby goerli
-Ethereum ethereum = new Ethereum(network);
-
 string message = &quot;YOUR_MESSAGE&quot;;
 string signature = &quot;0x94bdbebbd0180195b89721a55c3a436a194358c9b3c4eafd22484085563ff55e49a4552904266a5b56662b280757f6aad3b2ab91509daceef4e5b3016afd34781b&quot;;
 
-string account = await ethereum.Verify(message, signature);
+string account = await Ethereum.Verify(network, message, signature);
 print (account); // 0xC52C1FB0B9681e1c80e5AdA8eEeD992C0C2706eE
 </code></pre>
 <h2 id="erc1155">ERC1155</h2>
@@ -211,104 +196,126 @@ print (account); // 0xC52C1FB0B9681e1c80e5AdA8eEeD992C0C2706eE
 </li>
 </ul>
 <p>For example. The contract address <code>0x5e30b1d6f920364c847512e2528efdadf72a97a9</code> can store all digital chess pieces. A pawn can be token id <code>17</code>.</p>
-<h3 id="connect_1">Connect</h3>
-<pre><code class="language-c#">string network = &quot;mainnet&quot;; // mainnet ropsten kovan rinkeby goerli
-string contract = &quot;0x5e30b1d6f920364c847512e2528efdadf72a97a9&quot;;
-ERC1155 erc1155 = new ERC1155(network, contract);
-</code></pre>
 <h3 id="balance-of_1">Balance Of</h3>
-<pre><code class="language-c#">string account = &quot;0xaca9b6d9b1636d99156bb12825c75de1e5a58870&quot;;
-string tokenId = &quot;17&quot;;
+<pre><code class="language-c#">string network = &quot;rinkeby&quot;; // mainnet ropsten kovan rinkeby goerli
+string contract = &quot;0x2ebecabbbe8a8c629b99ab23ed154d74cd5d4342&quot;;
+string account = &quot;0xaca9b6d9b1636d99156bb12825c75de1e5a58870&quot;;
+string tokenId = &quot;22&quot;;
 
-BigInteger balance = await erc1155.BalanceOf(account, tokenId);
-print(balance)
+BigInteger balance = await ERC1155.BalanceOf(network, contract, account, tokenId);
+
+print (balance)
 </code></pre>
 <h3 id="balance-of-batch">Balance Of Batch</h3>
 <p>Balance of batch will get the balance of a list of accounts and token ids. For example:</p>
 <p>Get the balance of account <code>0xaCA9B6D9B1636D99156bB12825c75De1E5a58870</code> with token id <code>17</code> and</p>
 <p>balance of account <code>0xaCA9B6D9B1636D99156bB12825c75De1E5a58870</code> with token id <code>22</code></p>
-<pre><code class="language-c#">string[] accounts = { &quot;0xaCA9B6D9B1636D99156bB12825c75De1E5a58870&quot;, &quot;0xaCA9B6D9B1636D99156bB12825c75De1E5a58870&quot; };
+<pre><code class="language-c#">string network = &quot;rinkeby&quot;; // mainnet ropsten kovan rinkeby goerli
+string contract = &quot;0x2ebecabbbe8a8c629b99ab23ed154d74cd5d4342&quot;;
+string[] accounts ={ &quot;0xaCA9B6D9B1636D99156bB12825c75De1E5a58870&quot;, &quot;0xaCA9B6D9B1636D99156bB12825c75De1E5a58870&quot; };
 string[] tokenIds = { &quot;17&quot;, &quot;22&quot; };
 
-List&lt;BigInteger&gt; batchBalances = await erc1155.BalanceOfBatch(accounts, tokenIds);
+List&lt;BigInteger&gt; batchBalances = await ERC1155.BalanceOfBatch(network, contract, accounts, tokenIds);
 
 foreach (var balance in batchBalances)
 {
-  print(balance);
-};
+  print (&quot;batchBalance:&quot; + balance);
+}
 </code></pre>
 <h3 id="uri">URI</h3>
 <p>Returns meta data about the token.</p>
-<pre><code class="language-c#">string tokenId = &quot;17&quot;;
-string uri = await erc1155.URI(tokenId);
-print(uri);
+<pre><code class="language-c#">string network = &quot;rinkeby&quot;; // mainnet ropsten kovan rinkeby goerli
+string contract = &quot;0x2ebecabbbe8a8c629b99ab23ed154d74cd5d4342&quot;;
+string tokenId = &quot;17&quot;;
+
+string uri = await ERC1155.URI(network, contract, tokenId);
+
+print (uri);
 </code></pre>
 <h3 id="is-approved-for-all">Is Approved For All</h3>
 <p>Queries the approval status of an operator for a given owner</p>
-<pre><code class="language-c#">string account = &quot;0xaca9b6d9b1636d99156bb12825c75de1e5a58870&quot;;
+<pre><code class="language-c#">string network = &quot;rinkeby&quot;; // mainnet ropsten kovan rinkeby goerli
+string contract = &quot;0x2ebecabbbe8a8c629b99ab23ed154d74cd5d4342&quot;;
+string account = &quot;0xaca9b6d9b1636d99156bb12825c75de1e5a58870&quot;;
 string authorizedOperator = &quot;0x3482549fca7511267c9ef7089507c0f16ea1dcc1&quot;;
 
-bool isApproved = await erc1155.IsApprovedForAll(account, authorizedOperator);
-print(isApproved);
+// Queries the approval status of an operator for a given owner
+bool isApproved = await ERC1155.IsApprovedForAll(network, contract, account, authorizedOperator);
+
+print (isApproved);
 </code></pre>
 <h2 id="erc721">ERC721</h2>
-<h3 id="connect_2">Connect</h3>
-<pre><code class="language-c#">string network = &quot;rinkeby&quot;; // mainnet ropsten kovan rinkeby goerli
-string contract = &quot;0xe41d4b6ae91a322c89ecfe7670a154412659e8b0&quot;;
-ERC721 erc721= new ERC721(network, contract);
-</code></pre>
 <h3 id="balance-of_2">Balance Of</h3>
 <p>Counts all NFTs assigned to an owner</p>
-<pre><code class="language-c#">string account = &quot;0x72b8Df71072E38E8548F9565A322B04b9C752932&quot;;
-BigInteger balance = await erc721.BalanceOf(account);
-print(balance);
+<pre><code class="language-c#">string network = &quot;mainnet&quot;; // mainnet ropsten kovan rinkeby goerli
+string contract = &quot;0x60f80121c31a0d46b5279700f9df786054aa5ee5&quot;;
+string account = &quot;0x6b2be2106a7e883f282e2ea8e203f516ec5b77f7&quot;;
+
+BigInteger balance = await ERC721.BalanceOf(network, contract, account);
+
+print (balance);
 </code></pre>
 <h3 id="owner-of">Owner Of</h3>
 <p>Find the owner of a NFT</p>
-<pre><code class="language-c#">string tokenId = &quot;12&quot;;
-string account = await erc721.OwnerOf(tokenId);
-print(account);
+<pre><code class="language-c#">string network = &quot;mainnet&quot;; // mainnet ropsten kovan rinkeby goerli
+string contract = &quot;0xf5b0a3efb8e8e4c201e2a935f110eaaf3ffecb8d&quot;;
+string tokenId = &quot;721&quot;;
+
+string account = await ERC721.OwnerOf(network, contract, tokenId);
+
+print (account);
 </code></pre>
 <h2 id="erc20">ERC20</h2>
-<h3 id="connect_3">Connect</h3>
+<h3 id="balance-of_3">Balance Of</h3>
 <pre><code class="language-c#">string network = &quot;rinkeby&quot;; // mainnet ropsten kovan rinkeby goerli
 string contract = &quot;0xc778417e063141139fce010982780140aa0cd5ab&quot;;
-ERC20 erc20 = new ERC20(network, contract);
-</code></pre>
-<h3 id="balance-of_3">Balance Of</h3>
-<pre><code class="language-c#">string account = &quot;0xaCA9B6D9B1636D99156bB12825c75De1E5a58870&quot;;
-BigInteger balance = await erc20.BalanceOf(account);
+string account = &quot;0xaCA9B6D9B1636D99156bB12825c75De1E5a58870&quot;;
 
-// BigInteger decimals = await erc20.Decimals();
-BigInteger decimals = 18;
-print(&quot;blance in smallest unit: &quot; + balance);
-print(&quot;balance in decimals: &quot; + (double)balance / (double)BigInteger.Pow(10, (int)decimals));
+BigInteger balance = await ERC20.BalanceOf(network, contract, account);
+
+print (balance);
 </code></pre>
 <h3 id="name">Name</h3>
 <p>Returns the name of the token. E.g. "Wrapped Ether"</p>
-<pre><code class="language-c#">string name = await erc20.Name();
-print(name)
+<pre><code class="language-c#">string network = &quot;rinkeby&quot;; // mainnet ropsten kovan rinkeby goerli
+string contract = &quot;0xc778417E063141139Fce010982780140Aa0cD5Ab&quot;;
+
+string name = await ERC20.Name(network, contract);
+
+print (name);
 </code></pre>
 <h3 id="symbol">Symbol</h3>
 <p>Returns the symbol of the token. E.g. “WETH”.</p>
-<pre><code class="language-c#">string symbol = await erc20.Symbol();
-print(symbol);
+<pre><code class="language-c#">string network = &quot;rinkeby&quot;; // mainnet ropsten kovan rinkeby goerli
+string contract = &quot;0xc778417E063141139Fce010982780140Aa0cD5Ab&quot;;
+
+string symbol = await ERC20.Symbol(network, contract);
+
+print (symbol);
 </code></pre>
 <h3 id="decimals">Decimals</h3>
 <p>Returns the number of decimals the token uses - e.g. 8, means to divide the token amount by 100000000 to get its user representation.</p>
-<pre><code class="language-c#">BigInteger decimals = await erc20.Decimals();
-print(decimals);
+<pre><code class="language-c#">string network = &quot;rinkeby&quot;; // mainnet ropsten kovan rinkeby goerli
+string contract = &quot;0xc778417E063141139Fce010982780140Aa0cD5Ab&quot;;
+
+BigInteger decimals = await ERC20.Decimals(network, contract);
+
+print (decimals);
 </code></pre>
 <h3 id="total-supply">Total Supply</h3>
 <p>Returns the total token supply.</p>
-<pre><code class="language-c#">BigInteger totalSupply = await erc20.TotalSupply();
-print(totalSupply);
+<pre><code class="language-c#">string network = &quot;rinkeby&quot;; // mainnet ropsten kovan rinkeby goerli
+string contract = &quot;0xc778417e063141139fce010982780140aa0cd5ab&quot;;
+
+BigInteger totalSupply = await ERC20.TotalSupply(network, contract);
+
+print (totalSupply);
 </code></pre>
 <h2 id="wallet">Wallet</h2>
 <p><a href="https://www.youtube.com/watch?v=PSydAY9ps-I"><img alt="" src="https://user-images.githubusercontent.com/19412160/109343259-0d829f80-783b-11eb-9324-9962cd2b0c8c.png" /></a></p>
 <h3 id="loginscene">LoginScene</h3>
 <p>After Login Scene <code>_Config.cs</code> will store user info. This can be accessed in any scene.</p>
-<pre><code class="language-c#">string account = _Config.Account();
+<pre><code class="language-c#">string account = _Config.Account;
 print(account);
 </code></pre>
               
@@ -355,5 +362,5 @@ print(account);
 
 <!--
 MkDocs version : 1.1.2
-Build Date UTC : 2021-02-27 22:33:27.534650+00:00
+Build Date UTC : 2021-03-05 16:31:05.817817+00:00
 -->
