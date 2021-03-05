@@ -13,20 +13,14 @@ A plugin to bridge Unity to Ethereum Tokens.
 
 ## Ethereum
 
-### Connect
-
-```c#
-string network = "mainnet"; // mainnet ropsten kovan rinkeby goerli
-Ethereum ethereum = new Ethereum(network);
-```
-
 ### Balance Of
 
 ```c#
+string network = "mainnet"; // mainnet ropsten kovan rinkeby goerli
 string account = "0x99C85bb64564D9eF9A99621301f22C9993Cb89E3";
 
-BigInteger wei = await ethereum.BalanceOf(account);
-print(wei);
+BigInteger wei = await Ethereum.BalanceOf(network, account);
+print("wei: " + wei);
 ```
 
 ### Create Transaction
@@ -34,11 +28,12 @@ print(wei);
 Create an unsigned transaction. User can sign offline.
 
 ```c#
+string network = "rinkeby"; // mainnet ropsten kovan rinkeby goerli
 string from = "0x35706484aB20Cbf22F5c7a375D5764DA8166aE1c";
 string to = "0x7E3bE66431ba73956213C40C0828355D1A7894D3";
-string eth = "1";
+string eth = "0.00111";
 
-Transaction transaction = await ethereum.CreateTransaction(from, to, eth);
+Transaction transaction = await Ethereum.CreateTransaction(network, from, to, eth);
 
 print("network: " + transaction.network);
 print("to: " + transaction.to);
@@ -55,13 +50,10 @@ Broadcast a signed transaction.
 
 ```c#
 string network = "rinkeby"; // mainnet ropsten kovan rinkeby goerli
-Ethereum ethereum = new Ethereum(network);
-
-// using the private key to sign transaction
 string signedTransaction = "0xf86b04843b9aca0083989680947e3be66431ba73956213c40c0828355d1a7894d38703f18a03b36000802ca0043ab6289f2a44dd911bfb3658cfac12710354a3e0cef35544c9348b15f9f6f7a018d36b8d5b61dc00a54293528d0edd8a4a7c9f064817825c7e8cb8167b240860";
 
-string transactionHash = await ethereum.Broadcast(signedTransaction);
-print(transactionHash);
+string transactionHash = await Ethereum.Broadcast(network, signedTransaction);
+print (transactionHash);
 ```
 
 ### Verify
@@ -70,12 +62,10 @@ Verify a signed message.
 
 ```c#
 string network = "mainnet"; // mainnet ropsten kovan rinkeby goerli
-Ethereum ethereum = new Ethereum(network);
-
 string message = "YOUR_MESSAGE";
 string signature = "0x94bdbebbd0180195b89721a55c3a436a194358c9b3c4eafd22484085563ff55e49a4552904266a5b56662b280757f6aad3b2ab91509daceef4e5b3016afd34781b";
 
-string account = await ethereum.Verify(message, signature);
+string account = await Ethereum.Verify(network, message, signature);
 print (account); // 0xC52C1FB0B9681e1c80e5AdA8eEeD992C0C2706eE
 ```
 
@@ -89,22 +79,17 @@ ERC-1155 contracts have two additonal fields.
 
 For example. The contract address `0x5e30b1d6f920364c847512e2528efdadf72a97a9` can store all digital chess pieces. A pawn can be token id `17`.
 
-### Connect
-
-```c#
-string network = "mainnet"; // mainnet ropsten kovan rinkeby goerli
-string contract = "0x5e30b1d6f920364c847512e2528efdadf72a97a9";
-ERC1155 erc1155 = new ERC1155(network, contract);
-```
-
 ### Balance Of
 
 ```c#
+string network = "rinkeby"; // mainnet ropsten kovan rinkeby goerli
+string contract = "0x2ebecabbbe8a8c629b99ab23ed154d74cd5d4342";
 string account = "0xaca9b6d9b1636d99156bb12825c75de1e5a58870";
-string tokenId = "17";
+string tokenId = "22";
 
-BigInteger balance = await erc1155.BalanceOf(account, tokenId);
-print(balance)
+BigInteger balance = await ERC1155.BalanceOf(network, contract, account, tokenId);
+
+print (balance)
 ```
 
 ### Balance Of Batch
@@ -116,15 +101,17 @@ Get the balance of account `0xaCA9B6D9B1636D99156bB12825c75De1E5a58870` with tok
 balance of account `0xaCA9B6D9B1636D99156bB12825c75De1E5a58870` with token id `22`
 
 ```c#
-string[] accounts = { "0xaCA9B6D9B1636D99156bB12825c75De1E5a58870", "0xaCA9B6D9B1636D99156bB12825c75De1E5a58870" };
+string network = "rinkeby"; // mainnet ropsten kovan rinkeby goerli
+string contract = "0x2ebecabbbe8a8c629b99ab23ed154d74cd5d4342";
+string[] accounts ={ "0xaCA9B6D9B1636D99156bB12825c75De1E5a58870", "0xaCA9B6D9B1636D99156bB12825c75De1E5a58870" };
 string[] tokenIds = { "17", "22" };
 
-List<BigInteger> batchBalances = await erc1155.BalanceOfBatch(accounts, tokenIds);
+List<BigInteger> batchBalances = await ERC1155.BalanceOfBatch(network, contract, accounts, tokenIds);
 
 foreach (var balance in batchBalances)
 {
-  print(balance);
-};
+  print ("batchBalance:" + balance);
+}
 ```
 
 ### URI
@@ -132,9 +119,13 @@ foreach (var balance in batchBalances)
 Returns meta data about the token.
 
 ```c#
+string network = "rinkeby"; // mainnet ropsten kovan rinkeby goerli
+string contract = "0x2ebecabbbe8a8c629b99ab23ed154d74cd5d4342";
 string tokenId = "17";
-string uri = await erc1155.URI(tokenId);
-print(uri);
+
+string uri = await ERC1155.URI(network, contract, tokenId);
+
+print (uri);
 ```
 
 ### Is Approved For All
@@ -142,31 +133,31 @@ print(uri);
 Queries the approval status of an operator for a given owner
 
 ```c#
+string network = "rinkeby"; // mainnet ropsten kovan rinkeby goerli
+string contract = "0x2ebecabbbe8a8c629b99ab23ed154d74cd5d4342";
 string account = "0xaca9b6d9b1636d99156bb12825c75de1e5a58870";
 string authorizedOperator = "0x3482549fca7511267c9ef7089507c0f16ea1dcc1";
 
-bool isApproved = await erc1155.IsApprovedForAll(account, authorizedOperator);
-print(isApproved);
+// Queries the approval status of an operator for a given owner
+bool isApproved = await ERC1155.IsApprovedForAll(network, contract, account, authorizedOperator);
+
+print (isApproved);
 ```
 
 ## ERC721
-
-### Connect
-
-```c#
-string network = "rinkeby"; // mainnet ropsten kovan rinkeby goerli
-string contract = "0xe41d4b6ae91a322c89ecfe7670a154412659e8b0";
-ERC721 erc721= new ERC721(network, contract);
-```
 
 ### Balance Of
 
 Counts all NFTs assigned to an owner
 
 ```c#
-string account = "0x72b8Df71072E38E8548F9565A322B04b9C752932";
-BigInteger balance = await erc721.BalanceOf(account);
-print(balance);
+string network = "mainnet"; // mainnet ropsten kovan rinkeby goerli
+string contract = "0x60f80121c31a0d46b5279700f9df786054aa5ee5";
+string account = "0x6b2be2106a7e883f282e2ea8e203f516ec5b77f7";
+
+BigInteger balance = await ERC721.BalanceOf(network, contract, account);
+
+print (balance);
 ```
 
 ### Owner Of
@@ -174,31 +165,27 @@ print(balance);
 Find the owner of a NFT
 
 ```c#
-string tokenId = "12";
-string account = await erc721.OwnerOf(tokenId);
-print(account);
+string network = "mainnet"; // mainnet ropsten kovan rinkeby goerli
+string contract = "0xf5b0a3efb8e8e4c201e2a935f110eaaf3ffecb8d";
+string tokenId = "721";
+
+string account = await ERC721.OwnerOf(network, contract, tokenId);
+
+print (account);
 ```
 
 ## ERC20
 
-### Connect
+### Balance Of
 
 ```c#
 string network = "rinkeby"; // mainnet ropsten kovan rinkeby goerli
 string contract = "0xc778417e063141139fce010982780140aa0cd5ab";
-ERC20 erc20 = new ERC20(network, contract);
-```
-
-### Balance Of
-
-```c#
 string account = "0xaCA9B6D9B1636D99156bB12825c75De1E5a58870";
-BigInteger balance = await erc20.BalanceOf(account);
 
-// BigInteger decimals = await erc20.Decimals();
-BigInteger decimals = 18;
-print("blance in smallest unit: " + balance);
-print("balance in decimals: " + (double)balance / (double)BigInteger.Pow(10, (int)decimals));
+BigInteger balance = await ERC20.BalanceOf(network, contract, account);
+
+print (balance);
 ```
 
 ### Name
@@ -206,8 +193,12 @@ print("balance in decimals: " + (double)balance / (double)BigInteger.Pow(10, (in
 Returns the name of the token. E.g. "Wrapped Ether"
 
 ```c#
-string name = await erc20.Name();
-print(name)
+string network = "rinkeby"; // mainnet ropsten kovan rinkeby goerli
+string contract = "0xc778417E063141139Fce010982780140Aa0cD5Ab";
+
+string name = await ERC20.Name(network, contract);
+
+print (name);
 ```
 
 ### Symbol
@@ -215,8 +206,12 @@ print(name)
 Returns the symbol of the token. E.g. “WETH”.
 
 ```c#
-string symbol = await erc20.Symbol();
-print(symbol);
+string network = "rinkeby"; // mainnet ropsten kovan rinkeby goerli
+string contract = "0xc778417E063141139Fce010982780140Aa0cD5Ab";
+
+string symbol = await ERC20.Symbol(network, contract);
+
+print (symbol);
 ```
 
 ### Decimals
@@ -224,8 +219,12 @@ print(symbol);
 Returns the number of decimals the token uses - e.g. 8, means to divide the token amount by 100000000 to get its user representation.
 
 ```c#
-BigInteger decimals = await erc20.Decimals();
-print(decimals);
+string network = "rinkeby"; // mainnet ropsten kovan rinkeby goerli
+string contract = "0xc778417E063141139Fce010982780140Aa0cD5Ab";
+
+BigInteger decimals = await ERC20.Decimals(network, contract);
+
+print (decimals);
 ```
 
 ### Total Supply
@@ -233,8 +232,12 @@ print(decimals);
 Returns the total token supply.
 
 ```c#
-BigInteger totalSupply = await erc20.TotalSupply();
-print(totalSupply);
+string network = "rinkeby"; // mainnet ropsten kovan rinkeby goerli
+string contract = "0xc778417e063141139fce010982780140aa0cd5ab";
+
+BigInteger totalSupply = await ERC20.TotalSupply(network, contract);
+
+print (totalSupply);
 ```
 
 ## Wallet
@@ -246,6 +249,6 @@ print(totalSupply);
 After Login Scene `_Config.cs` will store user info. This can be accessed in any scene.
 
 ```c#
-string account = _Config.Account();
+string account = _Config.Account;
 print(account);
 ```
