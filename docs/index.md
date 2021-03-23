@@ -242,9 +242,16 @@ print (totalSupply);
 
 ## Wallet
 
+There are two Login Scenes. One for webgl and the other for stand alone (iOS, Android, Standalone)
+### iOS, Android, Standalone
+
 [![](https://user-images.githubusercontent.com/19412160/109343259-0d829f80-783b-11eb-9324-9962cd2b0c8c.png)](https://www.youtube.com/watch?v=PSydAY9ps-I)
 
-### LoginScene
+### WebGL
+
+[![](https://user-images.githubusercontent.com/19412160/112086705-17aa6c00-8b63-11eb-80b5-ef75801d4e21.png)](https://www.youtube.com/watch?v=4KpftfYcaEY)
+
+### _Config 
 
 After Login Scene `_Config.cs` will store user info. This can be accessed in any scene.
 
