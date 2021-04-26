@@ -5,11 +5,32 @@ summary: A plugin bridging Ethereum Tokens to Unity.
 
 # \_dLabs Documentation
 
-A plugin to bridge Unity to Ethereum Tokens.
+A plugin to bridge Unity to the blockchain.
 
 ## Introduction
 
-[![Watch the video](https://user-images.githubusercontent.com/19412160/103559601-66aa0480-4e84-11eb-803a-6f854e93640a.png)](https://www.youtube.com/watch?v=_XnB1BjUSvQ)
+[![Watch the video](https://user-images.githubusercontent.com/19412160/103559601-66aa0480-4e84-11eb-803a-6f854e93640a.png)](https://youtu.be/ry97OIwP8Zk)
+
+## Wallet
+
+There are two Login Scenes. One for webgl and the other for stand alone (iOS, Android, Standalone)
+
+### iOS, Android, Standalone
+
+[![](https://user-images.githubusercontent.com/19412160/109343259-0d829f80-783b-11eb-9324-9962cd2b0c8c.png)](https://www.youtube.com/watch?v=PSydAY9ps-I)
+
+### WebGL
+
+[![](https://user-images.githubusercontent.com/19412160/112086705-17aa6c00-8b63-11eb-80b5-ef75801d4e21.png)](https://www.youtube.com/watch?v=4KpftfYcaEY)
+
+### \_Config
+
+After Login Scene `_Config.cs` will store user info. This can be accessed in any scene.
+
+```c#
+string account = _Config.Account;
+print(account);
+```
 
 ## Ethereum
 
@@ -240,22 +261,123 @@ BigInteger totalSupply = await ERC20.TotalSupply(network, contract);
 print (totalSupply);
 ```
 
-## Wallet
+## Polygon
 
-There are two Login Scenes. One for webgl and the other for stand alone (iOS, Android, Standalone)
-### iOS, Android, Standalone
-
-[![](https://user-images.githubusercontent.com/19412160/109343259-0d829f80-783b-11eb-9324-9962cd2b0c8c.png)](https://www.youtube.com/watch?v=PSydAY9ps-I)
-
-### WebGL
-
-[![](https://user-images.githubusercontent.com/19412160/112086705-17aa6c00-8b63-11eb-80b5-ef75801d4e21.png)](https://www.youtube.com/watch?v=4KpftfYcaEY)
-
-### _Config 
-
-After Login Scene `_Config.cs` will store user info. This can be accessed in any scene.
+### Balance Of
 
 ```c#
-string account = _Config.Account;
-print(account);
+string network = "mainnet"; // mainnet testnet
+string account = "0x99C85bb64564D9eF9A99621301f22C9993Cb89E3";
+
+BigInteger balance = await Polygon.BalanceOf(network, account);
+
+print(balance);
+```
+
+### Verify
+
+Verify a signed message.
+
+```c#
+string network = "mainnet"; // mainnet testnet
+string message = "YOUR_MESSAGE";
+string signature = "0x94bdbebbd0180195b89721a55c3a436a194358c9b3c4eafd22484085563ff55e49a4552904266a5b56662b280757f6aad3b2ab91509daceef4e5b3016afd34781b";
+
+string account = await Polygon.Verify(network, message, signature);
+
+print (account);
+```
+
+## Polygon1155
+
+### Balance Of
+
+```c#
+string network = "mainnet"; // mainnet testnet
+string contract = "0xfd1dBD4114550A867cA46049C346B6cD452ec919";
+string account = "0x451bb3B5B93EE605daFA2D572AC170E9990eb8E4";
+string tokenId = "141";
+
+BigInteger balance = await Polygon1155.BalanceOf(network, contract, account, tokenId);
+
+print (balance);
+```
+
+### Balance Of Batch
+
+```c#
+string network = "mainnet"; // mainnet testnet
+string contract = "0xfd1dBD4114550A867cA46049C346B6cD452ec919";
+string[] accounts =
+{
+  "0x451bb3B5B93EE605daFA2D572AC170E9990eb8E4",
+  "0x451bb3B5B93EE605daFA2D572AC170E9990eb8E4"
+};
+string[] tokenIds = { "141", "142" };
+
+List<BigInteger> batchBalances = await Polygon1155.BalanceOfBatch(network, contract, accounts, tokenIds);
+
+foreach (var balance in batchBalances)
+{
+  print ("batchBalance:" + balance);
+}
+```
+
+### URI
+
+Returns meta data about the token.
+
+```c#
+string network = "mainnet"; // mainnet testnet
+string contract = "0xfd1dBD4114550A867cA46049C346B6cD452ec919";
+string tokenId = "141";
+
+string uri = await Polygon1155.URI(network, contract, tokenId);
+
+print (uri);
+```
+
+### Is Approved For All
+
+Queries the approval status of an operator for a given owner
+
+```c#
+string network = "mainnet"; // mainnet testnet
+string contract = "0xfd1dBD4114550A867cA46049C346B6cD452ec919";
+string account = "0x72b8Df71072E38E8548F9565A322B04b9C752932";
+string authorizedOperator = "0x35706484aB20Cbf22F5c7a375D5764DA8166aE1c";
+
+bool isApproved = await Polygon1155.IsApprovedForAll(network, contract, account, authorizedOperator);
+
+print (isApproved);
+```
+
+## Polygon721
+
+### Balance Of
+
+Counts all NFTs assigned to an owner
+
+```c#
+string network = "mainnet"; // mainnet testnet
+string contract = "0xbCCaa7ACb552A2c7eb27C7eb77c2CC99580735b9";
+string account = "0x8861399ee37626fcc020c49e5184d9b839ed854a";
+
+BigInteger balance = await Polygon721.BalanceOf(network, contract, account);
+
+print (balance);
+```
+
+### Owner Of
+
+Find the owner of a NFT
+
+```c#
+string network = "mainnet"; // mainnet testnet
+string contract = "0xbCCaa7ACb552A2c7eb27C7eb77c2CC99580735b9";
+string tokenId = "965";
+
+string account = await Polygon721.OwnerOf(network, contract, tokenId);
+
+print (account);
 ```
