@@ -607,3 +607,188 @@ BigInteger totalSupply = await BEP20.TotalSupply(network, contract);
 
 print (totalSupply);
 ```
+
+## xDai
+
+The first-ever USD stable blockchain and multi-chain staking token
+
+### Balance Of
+
+```c#
+string account = "0x577b17c9A02B7A360e0cf945D623D6C1ace6074c";
+
+BigInteger balance = await XDai.BalanceOf(account);
+
+print(balance);
+```
+
+### Verify
+
+```c#
+string message = "YOUR_MESSAGE";
+string signature = "0x94bdbebbd0180195b89721a55c3a436a194358c9b3c4eafd22484085563ff55e49a4552904266a5b56662b280757f6aad3b2ab91509daceef4e5b3016afd34781b";
+
+string account = await XDai.Verify(message, signature);
+
+print (account);
+```
+
+## xDai1155
+
+### Balance Of
+
+```c#
+string contract = "0x93d0c9a35c43f6BC999416A06aaDF21E68B29EBA";
+string account = "0xa63641e81D223F01d11343C67b77CB4f092acd5a";
+string tokenId = "1344";
+
+BigInteger balance = await XDai1155.BalanceOf(contract, account, tokenId);
+
+print (balance);
+```
+
+### Balance Of Batch
+
+```c#
+string contract = "0x93d0c9a35c43f6BC999416A06aaDF21E68B29EBA";
+string[] accounts =
+{
+  "0xa63641e81D223F01d11343C67b77CB4f092acd5a",
+  "0xa63641e81D223F01d11343C67b77CB4f092acd5a"
+};
+string[] tokenIds = { "1344", "1345" };
+
+List<BigInteger> batchBalances = await XDai1155.BalanceOfBatch(contract, accounts, tokenIds);
+
+foreach (var balance in batchBalances)
+{
+  print ("batchBalance:" + balance);
+}
+```
+
+### URI
+
+Returns meta data about the token.
+
+```c#
+string contract = "0x93d0c9a35c43f6BC999416A06aaDF21E68B29EBA";
+string tokenId = "1344";
+
+string uri = await XDai1155.URI(contract, tokenId);
+
+print (uri);
+```
+
+### Is Approved For All
+
+Queries the approval status of an operator for a given owner
+
+```c#
+string contract = "0x93d0c9a35c43f6BC999416A06aaDF21E68B29EBA";
+string account = "0xa63641e81D223F01d11343C67b77CB4f092acd5a";
+string authorizedOperator = "0x35706484aB20Cbf22F5c7a375D5764DA8166aE1c";
+
+bool isApproved = await XDai1155.IsApprovedForAll(contract, account, authorizedOperator);
+
+print (isApproved);
+```
+
+## xDai721
+
+### Balance Of
+
+Counts all NFTs assigned to an owner
+
+```c#
+string contract = "0x90FdA259CFbdB74F1804e921F523e660bfBE698d";
+string account = "0x525C18aB76A28C367c876BBDFaa16Bb96865F9fE";
+
+BigInteger balance = await XDai721.BalanceOf(contract, account);
+
+print (balance);
+```
+
+### Owner Of
+
+Find the owner of a NFT
+
+```c#
+string contract = "0x90FdA259CFbdB74F1804e921F523e660bfBE698d";
+string tokenId = "1582";
+
+string account = await XDai721.OwnerOf(contract, tokenId);
+
+print (account);
+```
+
+### URI
+
+```c#
+string contract = "0x90FdA259CFbdB74F1804e921F523e660bfBE698d";
+string tokenId = "1582";
+
+string uri = await XDai721.TokenURI(contract, tokenId);
+
+print (uri);
+```
+
+## xDai20
+
+### Balance Of
+
+```c#
+string contract = "0xa106739de31fa7a9df4a93c9bea3e1bade0924e2";
+string account = "0x000000ea89990a17Ec07a35Ac2BBb02214C50152";
+
+BigInteger balance = await XDai20.BalanceOf(contract, account);
+
+print (balance);
+```
+
+### Name
+
+Returns the name of the token. E.g. "Wrapped Ether"
+
+```c#
+string contract = "0xa106739de31fa7a9df4a93c9bea3e1bade0924e2";
+
+string name = await XDai20.Name(contract);
+
+print (name);
+```
+
+### Symbol
+
+Returns the symbol of the token. E.g. “WETH”.
+
+```c#
+string contract = "0xa106739de31fa7a9df4a93c9bea3e1bade0924e2";
+
+string symbol = await XDai20.Symbol(contract);
+
+print (symbol);
+```
+
+### Decimals
+
+Returns the number of decimals the token uses - e.g. 8, means to divide the token amount by 100000000 to get its user representation.
+
+```c#
+string contract = "0xa106739de31fa7a9df4a93c9bea3e1bade0924e2";
+
+BigInteger decimals = await XDai20.Decimals(contract);
+
+print (decimals);
+```
+
+### Total Supply
+
+Returns the total token supply.
+
+```c#
+string contract = "0xa106739de31fa7a9df4a93c9bea3e1bade0924e2";
+
+BigInteger totalSupply = await XDai20.TotalSupply(contract);
+
+print (totalSupply);
+```
