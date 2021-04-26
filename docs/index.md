@@ -159,7 +159,6 @@ string contract = "0x2ebecabbbe8a8c629b99ab23ed154d74cd5d4342";
 string account = "0xaca9b6d9b1636d99156bb12825c75de1e5a58870";
 string authorizedOperator = "0x3482549fca7511267c9ef7089507c0f16ea1dcc1";
 
-// Queries the approval status of an operator for a given owner
 bool isApproved = await ERC1155.IsApprovedForAll(network, contract, account, authorizedOperator);
 
 print (isApproved);
@@ -193,6 +192,18 @@ string tokenId = "721";
 string account = await ERC721.OwnerOf(network, contract, tokenId);
 
 print (account);
+```
+
+### URI
+
+```c#
+string network = "mainnet"; // mainnet ropsten kovan rinkeby goerli
+string contract = "0xf5b0a3efb8e8e4c201e2a935f110eaaf3ffecb8d";
+string tokenId = "721";
+
+string uri = await ERC721.TokenURI(network, contract, tokenId);
+
+print (uri);
 ```
 
 ## ERC20
@@ -380,4 +391,219 @@ string tokenId = "965";
 string account = await Polygon721.OwnerOf(network, contract, tokenId);
 
 print (account);
+```
+
+### URI
+
+```c#
+string network = "mainnet"; // mainnet testnet
+string contract = "0xbCCaa7ACb552A2c7eb27C7eb77c2CC99580735b9";
+string tokenId = "965";
+
+string uri = await Polygon721.TokenURI(network, contract, tokenId);
+
+print (uri);
+```
+
+## Binance Smart Chain
+
+### Balance Of
+
+```c#
+string network = "testnet"; // mainnet testnet
+string account = "0x451bb3B5B93EE605daFA2D572AC170E9990eb8E4";
+
+BigInteger balance = await Binance.BalanceOf(network, account);
+
+print(balance);
+```
+
+### Verify
+
+```c#
+string network = "mainnet"; // mainnet testnet
+string message = "YOUR_MESSAGE";
+string signature = "0x94bdbebbd0180195b89721a55c3a436a194358c9b3c4eafd22484085563ff55e49a4552904266a5b56662b280757f6aad3b2ab91509daceef4e5b3016afd34781b";
+
+string account = await Binance.Verify(network, message, signature);
+
+print (account);
+```
+
+## BEP1155
+
+Binance Smart Chain that extends ERC-1155
+
+### Balance Of
+
+```c#
+string network = "mainnet"; // mainnet testnet
+string contract = "0x3E31F70912c00AEa971A8b2045bd568D738C31Dc";
+string account = "0xe91e3b8b25f41b215645813a33e39edf42ba25cf";
+string tokenId = "770";
+
+BigInteger balance = await BEP1155.BalanceOf(network, contract, account, tokenId);
+
+print (balance);
+```
+
+### Balance Of Batch
+
+```c#
+string network = "mainnet"; // mainnet testnet
+string contract = "0x3E31F70912c00AEa971A8b2045bd568D738C31Dc";
+string[] accounts =
+{
+  "0xe91e3b8b25f41b215645813a33e39edf42ba25cf",
+  "0xe91e3b8b25f41b215645813a33e39edf42ba25cf"
+};
+string[] tokenIds = { "770", "771" };
+
+List<BigInteger> batchBalances = await BEP1155.BalanceOfBatch(network, contract, accounts, tokenIds);
+
+foreach (var balance in batchBalances)
+{
+  print ("batchBalance:" + balance);
+}
+```
+
+### URI
+
+Returns meta data about the token.
+
+```c#
+string network = "mainnet"; // mainnet testnet
+string contract = "0x3E31F70912c00AEa971A8b2045bd568D738C31Dc";
+string tokenId = "770";
+
+string uri = await BEP1155.URI(network, contract, tokenId);
+
+print (uri);
+```
+
+### Is Approved For All
+
+Queries the approval status of an operator for a given owner
+
+```c#
+string network = "mainnet"; // mainnet testnet
+string contract = "0x3E31F70912c00AEa971A8b2045bd568D738C31Dc";
+string account = "0xe91e3b8b25f41b215645813a33e39edf42ba25cf";
+string authorizedOperator = "0x35706484aB20Cbf22F5c7a375D5764DA8166aE1c";
+
+bool isApproved = await BEP1155.IsApprovedForAll(network, contract, account, authorizedOperator);
+
+print (isApproved);
+```
+
+## BEP721
+
+Binance Smart Chain that extends ERC-721
+
+### Balance Of
+
+Counts all NFTs assigned to an owner
+
+```c#
+string network = "mainnet"; // mainnet testnet
+string contract = "0x3e855B7941fE8ef5F07DAd68C5140D6a3EC1b286";
+string account = "0xf81035dd3945ee53f5862833844b69df339c7db4";
+
+BigInteger balance = await BEP721.BalanceOf(network, contract, account);
+
+print (balance);
+```
+
+### Owner Of
+
+Find the owner of a NFT
+
+```c#
+string network = "mainnet"; // mainnet testnet
+string contract = "0x3e855B7941fE8ef5F07DAd68C5140D6a3EC1b286";
+string tokenId = "1008";
+
+string account = await BEP721.OwnerOf(network, contract, tokenId);
+
+print (account);
+```
+
+### URI
+
+```c#
+string network = "mainnet"; // mainnet testnet
+string contract = "0x3e855B7941fE8ef5F07DAd68C5140D6a3EC1b286";
+string account = "0xf81035dd3945ee53f5862833844b69df339c7db4";
+
+BigInteger balance = await BEP721.BalanceOf(network, contract, account);
+
+print (balance);
+```
+
+## BEP20
+
+Binance Smart Chain that extends ERC-20
+
+### Balance Of
+
+```c#
+string network = "testnet"; // mainnet testnet
+string contract = "0xb6b8bb1e16a6f73f7078108538979336b9b7341c";
+string account = "0x451bb3B5B93EE605daFA2D572AC170E9990eb8E4";
+
+BigInteger balance = await BEP20.BalanceOf(network, contract, account);
+
+print (balance);
+```
+
+### Name
+
+Returns the name of the token. E.g. "Wrapped Ether"
+
+```c#
+string network = "testnet"; // mainnet testnet
+string contract = "0xb6b8bb1e16a6f73f7078108538979336b9b7341c";
+
+string name = await BEP20.Name(network, contract);
+
+print (name);
+```
+
+### Symbol
+
+Returns the symbol of the token. E.g. “WETH”.
+
+```c#
+string network = "testnet"; // mainnet testnet
+string contract = "0xb6b8bb1e16a6f73f7078108538979336b9b7341c";
+
+string symbol = await BEP20.Symbol(network, contract);
+
+print (symbol);
+```
+
+### Decimals
+
+Returns the number of decimals the token uses - e.g. 8, means to divide the token amount by 100000000 to get its user representation.
+
+```c#
+string network = "testnet"; // mainnet testnet
+string contract = "0xb6b8bb1e16a6f73f7078108538979336b9b7341c";
+
+BigInteger decimals = await BEP20.Decimals(network, contract);
+
+print (decimals);
+```
+
+### Total Supply
+
+Returns the total token supply.
+
+```c#
+string network = "testnet"; // mainnet testnet
+string contract = "0xb6b8bb1e16a6f73f7078108538979336b9b7341c";
+
+BigInteger totalSupply = await BEP20.TotalSupply(network, contract);
+
+print (totalSupply);
 ```
