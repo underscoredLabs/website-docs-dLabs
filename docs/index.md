@@ -11,15 +11,15 @@ A plugin to bridge Unity to the blockchain.
 
 [![Watch the video](https://user-images.githubusercontent.com/19412160/103559601-66aa0480-4e84-11eb-803a-6f854e93640a.png)](https://youtu.be/ry97OIwP8Zk)
 
-## Wallet
+## Login
 
 There are two Login Scenes. One for webgl and the other for stand alone (iOS, Android, Standalone)
 
-### iOS, Android, Standalone
+### iOS, Android, Standalone Login
 
 [![](https://user-images.githubusercontent.com/19412160/109343259-0d829f80-783b-11eb-9324-9962cd2b0c8c.png)](https://www.youtube.com/watch?v=PSydAY9ps-I)
 
-### WebGL
+### WebGL Login
 
 [![](https://user-images.githubusercontent.com/19412160/112086705-17aa6c00-8b63-11eb-80b5-ef75801d4e21.png)](https://www.youtube.com/watch?v=4KpftfYcaEY)
 
@@ -30,6 +30,48 @@ After Login Scene `_Config.cs` will store user info. This can be accessed in any
 ```c#
 string account = _Config.Account;
 print(account);
+```
+
+## WebGL Build
+
+[![](https://user-images.githubusercontent.com/19412160/118180075-1fb8b680-b404-11eb-99cd-486eae19fe0d.png)](https://www.youtube.com/watch?v=WkWYPuFHM5k)
+
+### Call through WebGL
+
+Call will execute a smart contract method without altering the smart contract state.
+
+```c#
+// smart contract method to call
+string method = "x";
+// abi in json format
+string abi = "[ { \"inputs\": [], \"name\": \"increment\", \"outputs\": [], \"stateMutability\": \"nonpayable\", \"type\": \"function\" }, { \"inputs\": [], \"name\": \"x\", \"outputs\": [ { \"internalType\": \"uint256\", \"name\": \"\", \"type\": \"uint256\" } ], \"stateMutability\": \"view\", \"type\": \"function\" } ]";
+// address of contract
+string contract = "0xB6B8bB1e16A6F73f7078108538979336B9B7341C";
+// array of arguments for contract
+string args = "[]";
+
+// connects to user's browser wallet to call a transaction
+string response = await Web3GL.Call(method, abi, contract, args);
+```
+
+### Send through WebGL
+
+Send will execute a smart contract method, altering the smart contract state.
+
+```c#
+// smart contract method to call
+string method = "increment";
+// abi in json format
+string abi = "[ { \"inputs\": [], \"name\": \"increment\", \"outputs\": [], \"stateMutability\": \"nonpayable\", \"type\": \"function\" }, { \"inputs\": [], \"name\": \"x\", \"outputs\": [ { \"internalType\": \"uint256\", \"name\": \"\", \"type\": \"uint256\" } ], \"stateMutability\": \"view\", \"type\": \"function\" } ]";
+// address of contract
+string contract = "0xB6B8bB1e16A6F73f7078108538979336B9B7341C";
+// array of arguments for contract
+string args = "[]";
+// value in wei
+string value = "0";
+
+// connects to user's browser wallet (metamask) to send a transaction
+Web3GL.Send(method, abi, contract, args, value);
 ```
 
 ## Ethereum
