@@ -1,11 +1,11 @@
 ---
 title: _dLabs SDK
-summary: Bridge games to the blockchain. 
+summary: Bridging Unity games to the blockchain.
 ---
 
 # \_dLabs Documentation
 
-Bridge games to the blockchain.
+Bridging Unity games to the blockchain.
 
 ## Introduction
 
