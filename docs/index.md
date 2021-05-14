@@ -1,11 +1,11 @@
 ---
 title: _dLabs SDK
-summary: A plugin bridging Ethereum Tokens to Unity.
+summary: Bridge games to the blockchain. 
 ---
 
 # \_dLabs Documentation
 
-A plugin to bridge Unity to the blockchain.
+Bridge games to the blockchain.
 
 ## Introduction
 
