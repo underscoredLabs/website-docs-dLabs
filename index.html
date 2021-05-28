@@ -18,7 +18,7 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "_dLabs SDK";
+    var mkdocs_page_name = "SDK Docs";
     var mkdocs_page_input_path = "index.md";
     var mkdocs_page_url = null;
   </script>
@@ -48,7 +48,7 @@
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
                 <ul class="current">
-                    <li class="toctree-l1 current"><a class="reference internal current" href=".">_dLabs SDK</a>
+                    <li class="toctree-l1 current"><a class="reference internal current" href=".">SDK Docs</a>
     <ul class="current">
     <li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a>
     </li>
@@ -260,7 +260,7 @@
     
       
     
-    <li>_dLabs SDK</li>
+    <li>SDK Docs</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -271,7 +271,7 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="_dlabs-documentation">_dLabs Documentation</h1>
+                <h1 id="documentation">Documentation</h1>
 <p>Bridging Unity games to the blockchain.</p>
 <h2 id="introduction">Introduction</h2>
 <p><a href="https://youtu.be/ry97OIwP8Zk"><img alt="Watch the video" src="https://user-images.githubusercontent.com/19412160/103559601-66aa0480-4e84-11eb-803a-6f854e93640a.png" /></a></p>
@@ -353,11 +353,10 @@ print (transactionHash);
 </code></pre>
 <h3 id="verify">Verify</h3>
 <p>Verify a signed message.</p>
-<pre><code class="language-c#">string network = &quot;mainnet&quot;; // mainnet ropsten kovan rinkeby goerli
-string message = &quot;YOUR_MESSAGE&quot;;
+<pre><code class="language-c#">string message = &quot;YOUR_MESSAGE&quot;;
 string signature = &quot;0x94bdbebbd0180195b89721a55c3a436a194358c9b3c4eafd22484085563ff55e49a4552904266a5b56662b280757f6aad3b2ab91509daceef4e5b3016afd34781b&quot;;
 
-string account = await Ethereum.Verify(network, message, signature);
+string account = await Ethereum.Verify(message, signature);
 print (account); // 0xC52C1FB0B9681e1c80e5AdA8eEeD992C0C2706eE
 </code></pre>
 <h2 id="erc1155">ERC1155</h2>
@@ -505,11 +504,9 @@ print(balance);
 </code></pre>
 <h3 id="verify_1">Verify</h3>
 <p>Verify a signed message.</p>
-<pre><code class="language-c#">string network = &quot;mainnet&quot;; // mainnet testnet
-string message = &quot;YOUR_MESSAGE&quot;;
-string signature = &quot;0x94bdbebbd0180195b89721a55c3a436a194358c9b3c4eafd22484085563ff55e49a4552904266a5b56662b280757f6aad3b2ab91509daceef4e5b3016afd34781b&quot;;
+<pre><code class="language-c#">string signature = &quot;0x94bdbebbd0180195b89721a55c3a436a194358c9b3c4eafd22484085563ff55e49a4552904266a5b56662b280757f6aad3b2ab91509daceef4e5b3016afd34781b&quot;;
 
-string account = await Polygon.Verify(network, message, signature);
+string account = await Polygon.Verify(message, signature);
 
 print (account);
 </code></pre>
@@ -602,11 +599,10 @@ BigInteger balance = await Binance.BalanceOf(network, account);
 print(balance);
 </code></pre>
 <h3 id="verify_2">Verify</h3>
-<pre><code class="language-c#">string network = &quot;mainnet&quot;; // mainnet testnet
-string message = &quot;YOUR_MESSAGE&quot;;
+<pre><code class="language-c#">string message = &quot;YOUR_MESSAGE&quot;;
 string signature = &quot;0x94bdbebbd0180195b89721a55c3a436a194358c9b3c4eafd22484085563ff55e49a4552904266a5b56662b280757f6aad3b2ab91509daceef4e5b3016afd34781b&quot;;
 
-string account = await Binance.Verify(network, message, signature);
+string account = await Binance.Verify(message, signature);
 
 print (account);
 </code></pre>
@@ -912,5 +908,5 @@ print (totalSupply);
 
 <!--
 MkDocs version : 1.1.2
-Build Date UTC : 2021-05-14 16:29:51.376381+00:00
+Build Date UTC : 2021-05-28 01:31:51.528036+00:00
 -->
