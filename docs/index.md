@@ -1,9 +1,9 @@
 ---
-title: _dLabs SDK
+title: SDK Docs
 summary: Bridging Unity games to the blockchain.
 ---
 
-# \_dLabs Documentation
+# Documentation
 
 Bridging Unity games to the blockchain.
 
@@ -124,11 +124,10 @@ print (transactionHash);
 Verify a signed message.
 
 ```c#
-string network = "mainnet"; // mainnet ropsten kovan rinkeby goerli
 string message = "YOUR_MESSAGE";
 string signature = "0x94bdbebbd0180195b89721a55c3a436a194358c9b3c4eafd22484085563ff55e49a4552904266a5b56662b280757f6aad3b2ab91509daceef4e5b3016afd34781b";
 
-string account = await Ethereum.Verify(network, message, signature);
+string account = await Ethereum.Verify(message, signature);
 print (account); // 0xC52C1FB0B9681e1c80e5AdA8eEeD992C0C2706eE
 ```
 
@@ -332,11 +331,9 @@ print(balance);
 Verify a signed message.
 
 ```c#
-string network = "mainnet"; // mainnet testnet
-string message = "YOUR_MESSAGE";
 string signature = "0x94bdbebbd0180195b89721a55c3a436a194358c9b3c4eafd22484085563ff55e49a4552904266a5b56662b280757f6aad3b2ab91509daceef4e5b3016afd34781b";
 
-string account = await Polygon.Verify(network, message, signature);
+string account = await Polygon.Verify(message, signature);
 
 print (account);
 ```
@@ -463,11 +460,10 @@ print(balance);
 ### Verify
 
 ```c#
-string network = "mainnet"; // mainnet testnet
 string message = "YOUR_MESSAGE";
 string signature = "0x94bdbebbd0180195b89721a55c3a436a194358c9b3c4eafd22484085563ff55e49a4552904266a5b56662b280757f6aad3b2ab91509daceef4e5b3016afd34781b";
 
-string account = await Binance.Verify(network, message, signature);
+string account = await Binance.Verify(message, signature);
 
 print (account);
 ```
